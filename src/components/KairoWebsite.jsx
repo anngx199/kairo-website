@@ -7,7 +7,7 @@ import CheckoutButton from './CheckoutButton'
 const Button = ({ children, className = '', ...props }) => (
   <button
     {...props}
-    className={`bg-gradient-to-r from-yellow-400 via-orange-400 to-rose-400 text-white font-semibold rounded-full px-6 py-3 shadow-md hover:scale-105 transition-all duration-300 ease-in-out ${className}`}
+    className={`bg-gradient-to-r from-pink-600 via-yellow-500 to-green-600 text-white font-semibold rounded-full px-6 py-3 shadow-md hover:scale-105 transition-all duration-300 ease-in-out ${className}`}
   >
     {children}
   </button>
@@ -22,81 +22,105 @@ export default function KairoWebsite() {
   return (
     <>
       <div className="font-serif text-gray-900 bg-white min-h-screen">
-        {/* Header */}
-        <header className="sticky top-0 z-50 bg-white shadow-sm px-10 py-5 flex items-center justify-between">
-          <img src="/images/kairo-logo.png" alt="Logo" className="h-20 md:h-24 lg:h-28 w-auto" />
+        <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-3 px-6">
+          {/* Floating Gummies Background */}
+          <img
+            src="/images/floating-gummies.png"
+            alt="Floating Gummies"
+            className="absolute inset-0 w-full h-full object-cover opacity-90 pointer-events-none z-0"
+            style={{
+              filter: 'contrast(1.2) saturate(1.3)',
+            }}
+          />
 
-          <nav className="flex-1 flex justify-center gap-16">
-            {['Home', 'Ingredients', 'Shop', 'Our Mission'].map((item) => (
+          {/* Header Content */}
+          <div className="relative z-10 flex items-center justify-between">
+            {/* Logo */}
+            <img src="/images/kairo-logo.png" alt="Kairo Logo" className="h-16 w-auto" />
+
+            {/* Navigation */}
+            <nav className="flex-1 flex justify-center gap-12">
               <a
-                key={item}
-                href={`#${item.toLowerCase().replace(/\s/g, '')}`}
-                className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-pink-400 via-yellow-300 to-green-400 hover:opacity-80 transition"
+                href="#home"
+                className="text-3xl font-bold text-blue-600 hover:opacity-80 transition"
               >
-                {item}
+                Home
               </a>
-            ))}
-          </nav>
+              <a
+                href="#ingredients"
+                className="text-3xl font-bold text-green-600 hover:opacity-80 transition"
+              >
+                Ingredients
+              </a>
+              <a
+                href="#shop"
+                className="text-3xl font-bold text-yellow-600 hover:opacity-80 transition"
+              >
+                Shop
+              </a>
+              <a
+                href="#ourmission"
+                className="text-3xl font-bold text-purple-600 hover:opacity-80 transition"
+              >
+                Our Mission
+              </a>
+            </nav>
 
-          <CheckoutButton priceId="your_price_id_here">Shop Now</CheckoutButton>
+            {/* Buy Button */}
+            <a
+              href="#shop"
+              className="text-white font-semibold rounded-full px-5 py-2 bg-gradient-to-r from-pink-600 via-yellow-500 to-green-600 shadow-md hover:scale-105 transition-all duration-300 ease-in-out"
+            >
+              Buy Now
+            </a>
+          </div>
         </header>
-        {/* Section 2: Hero Section */}
+
         <section
           id="home"
           className="relative h-[100vh] flex items-center justify-center text-center text-white"
         >
+          {/* Background Image */}
           <img
-            src="/images/gummies-layout-a.jpg"
+            src="/images/hero.png"
             alt="Lifestyle Background"
-            className="absolute inset-0 w-full h-full object-cover brightness-90 saturate-100"
+            className="absolute inset-0 w-full h-full object-cover"
             style={{ filter: 'brightness(0.93) saturate(1.1) contrast(0.97)' }}
           />
-          <div className="relative z-10 max-w-5xl px-6 flex flex-col items-center">
-            <h2 className="text-4xl font-bold text-center bg-rainbow bg-clip-text text-transparent">
-              <span>
-                <Typewriter
-                  words={['Unlock Your Potential, Naturally!']}
-                  loop={1}
-                  typeSpeed={60}
-                  deleteSpeed={0}
-                  delaySpeed={1000}
-                />
-              </span>
+
+          {/* Foreground Content */}
+          <div className="relative z-10 max-w-5xl px-6 flex flex-col items-center mt-[25rem]">
+            {/* Headline */}
+            <h2 className="text-4xl md:text-5xl font-bold text-center text-transparent bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-200 bg-clip-text mb-4">
+              <Typewriter
+                words={['Unlock Your Potential, Naturally!']}
+                loop={1}
+                typeSpeed={60}
+                deleteSpeed={0}
+                delaySpeed={1000}
+              />
             </h2>
-            <p className="text-lg md:text-xl mb-8 text-white bg-gradient-to-r from-green-900/60 via-green-200/40 to-yellow-100/30 bg-clip-text text-transparent">
+
+            {/* Description */}
+            <p className="text-lg md:text-xl text-white leading-relaxed mb-6">
               Experience the vibrant synergy of nature&apos;s finest ingredients with Kairo&apos;s
               Vegan Sweets. Our Seamoss Mango Gummies are more than just a treat; they&apos;re your
               daily boost of brilliance, crafted to sharpen your focus and energize your day, the
               delicious vegan way!
             </p>
-            {/* ✅ Headline logo */}
-            <img src="/images/kairo-logo-2.png" alt="Kairo Logo" className="h-32 w-auto mx-auto" />
+
+            {/* CTA Button */}
             <a
               href="#shop"
-              className="mt-6 inline-block px-8 py-3 text-white font-bold rounded-full text-lg transition bg-gradient-to-r from-pink-400 via-yellow-300 to-green-400 hover:opacity-80"
+              className="inline-block px-8 py-3 text-white font-bold rounded-full text-lg transition bg-gradient-to-r from-pink-600 via-yellow-500 to-green-600 hover:opacity-90 shadow-lg"
             >
               Shop The Gummies
             </a>
           </div>
         </section>
-        {/* Section 3: Introduction */}
-        <section className="py-16 px-6 text-center font-serif bg-white text-gray-800">
-          <h3 className="text-4xl font-bold mb-6 bg-gradient-to-r from-pink-500 via-yellow-400 to-green-500 bg-clip-text text-transparent">
-            <Typewriter
-              words={['The Power of Nature in Every Bite']}
-              loop={1}
-              typeSpeed={60}
-              deleteSpeed={0}
-              delaySpeed={1000}
-            />
-          </h3>
-          <p className="max-w-2xl mx-auto">
-            Irish Sea Moss (1600mg), Bladderwrack (1000mg), and Burdock Root (240mg) work together
-            for energy, focus, and wellness. Enjoy our signature mango flavor from organic extracts.
-          </p>
-        </section>
+
         {/* Section 4: Star Ingredients */}
-        <section id="ingredients" className="py-16 bg-gray-100 px-6">
+        <section id="ingredients" className="py-16 bg-white">
           <h3 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-pink-500 via-yellow-400 to-green-500 bg-clip-text text-transparent">
             Meet Our Star Ingredients
           </h3>
@@ -140,6 +164,28 @@ export default function KairoWebsite() {
             ))}
           </div>
         </section>
+
+        {/* Section 3: Introduction */}
+        <section className="py-16 px-6 text-center font-serif bg-gray-100 text-gray-800">
+          <h3
+            className="text-4xl font-bold mb-6 bg-gradient-to-rbg-gradient-to-r from-red-500 via-green-500 to-yellow-400
+ bg-clip-text text-transparent"
+          >
+            <Typewriter
+              words={['The Power of Nature in Every Bite']}
+              loop={1}
+              typeSpeed={60}
+              deleteSpeed={0}
+              delaySpeed={1000}
+            />
+          </h3>
+
+          <p className="max-w-2xl mx-auto">
+            Irish Sea Moss (1600mg), Bladderwrack (1000mg), and Burdock Root (240mg) work together
+            for energy, focus, and wellness. Enjoy our signature mango flavor from organic extracts.
+          </p>
+        </section>
+
         {/* Section 5: Product Benefits */}
         <section className="py-20 px-6 bg-white text-center">
           <h3 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-pink-500 via-yellow-400 to-green-500 text-transparent bg-clip-text">
@@ -190,7 +236,8 @@ export default function KairoWebsite() {
         <section id="shop" className="py-20 bg-gray-100 px-6">
           {/* Animated Heading */}
           <motion.h3
-            className="text-4xl font-extrabold text-center mb-4 bg-gradient-to-r from-pink-500 via-yellow-400 to-green-500 text-transparent bg-clip-text"
+            className="text-4xl font-extrabold text-center mb-4 bg-gradient-to-r from-red-500 via-green-500 to-yellow-400
+ text-transparent bg-clip-text"
             animate={{ y: [0, -5, 0] }}
             transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
           >
@@ -198,7 +245,7 @@ export default function KairoWebsite() {
           </motion.h3>
 
           <motion.p
-            className="text-center text-lg font-medium text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 mb-10"
+            className="text-center text-lg font-medium text-black mb-10"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -240,9 +287,7 @@ export default function KairoWebsite() {
                 transition={{ duration: 0.6, delay: i * 0.2 }}
                 className="bg-white rounded-2xl p-6 shadow-md text-center hover:shadow-xl hover:scale-105 transition-all duration-300"
               >
-                <h4 className="font-bold text-xl bg-rainbow bg-clip-text text-transparent">
-                  {opt.title}
-                </h4>
+                <h4 className="font-bold text-xl text-black">{opt.title}</h4>
                 <p className="text-gray-700">{opt.details}</p>
                 <p className="text-2xl font-extrabold mt-3">{opt.price}</p>
                 <p className="text-sm text-gray-500">+ Shipping: {opt.shipping}</p>
@@ -293,7 +338,7 @@ export default function KairoWebsite() {
             viewport={{ once: true }}
           >
             <img
-              src="/images/hero.jpg"
+              src="/images/gummies-layout-a.jpg"
               alt="Gummies Layout"
               className="w-full max-w-4xl rounded-xl shadow-md"
             />
@@ -336,10 +381,9 @@ export default function KairoWebsite() {
             viewport={{ once: true }}
           >
             A portion of every purchase helps fund our vital health projects for young people in the
-            UK and supports building brighter futures in Uganda. With Kairo&apos;s, you're not just
-            investing in yourself, you're investing in community.
+            UK and supports building brighter futures in Uganda. With Kairo&apos;s, you&apos;re not
+            investing in yourself, you&apos;re investing in community.
           </motion.p>
-
           {/* Sub-section: App & Competition */}
           <motion.div
             className="mt-16 mb-12 px-6 max-w-5xl mx-auto text-center"
@@ -365,12 +409,12 @@ export default function KairoWebsite() {
               transition={{ duration: 0.8, delay: 0.2 }}
               viewport={{ once: true }}
             >
-              Buy <span className="font-bold text-yellow-500">4 packs</span> of our BMF Seamoss
-              Mango Gummies for a chance to win a
-              <span className="font-bold text-yellow-600"> real Gold Coin</span> or a
-              <span className="font-bold text-green-600"> cash alternative</span>! Scanning the QR
-              code on your pack also gives you early access to the revolutionary
-              <span className="font-bold text-pink-600"> How To App</span>.
+              Buy <span className="font-bold text-black">4 packs</span> of our BMF Seamoss Mango
+              Gummies for a chance to win a
+              <span className="font-bold text-black"> real Gold Coin</span> or a
+              <span className="font-bold text-black"> cash alternative</span>! Scanning the QR code
+              on your pack also gives you early access to the revolutionary
+              <span className="font-bold text-black"> How To App</span>.
             </motion.p>
 
             <motion.p
@@ -399,9 +443,19 @@ export default function KairoWebsite() {
             </motion.div>
           </motion.div>
         </section>
+
         {/* Section 8: Footer */}
-        <footer className="bg-gray-900 text-white py-12 px-6">
-          <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+        <footer className="relative bg-gradient-to-t from-gray-900 to-black text-white py-16 px-6 overflow-hidden">
+          {/* Clear Floating Gummies */}
+          <img
+            src="/images/floating-gummies.png"
+            alt="Floating Gummies Background"
+            className="absolute inset-0 w-full h-full object-cover opacity-25"
+            style={{ filter: 'brightness(1.3) saturate(1.5) contrast(1.2)' }}
+          />
+
+          {/* Content Overlay */}
+          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
             {/* Navigation */}
             <div>
               <h5 className="text-lg font-semibold mb-3 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">

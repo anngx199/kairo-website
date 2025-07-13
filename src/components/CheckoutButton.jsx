@@ -25,7 +25,7 @@ export default function CheckoutButton() {
   return (
     <button
       onClick={handleCheckout}
-      className="bg-gradient-to-r from-pink-400 via-yellow-300 to-green-400 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:opacity-90 transition"
+      className="bg-gradient-to-r from-pink-600 via-yellow-500 to-green-600 text-white font-bold py-2 px-6 rounded-full shadow-lg hover:brightness-110 transition"
     >
       Buy Now
     </button>
