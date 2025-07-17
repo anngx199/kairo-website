@@ -23,6 +23,19 @@ import { useEffect, useState } from 'react'
 export default function KairoWebsite() {
   const [showHeader, setShowHeader] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,18 +56,18 @@ export default function KairoWebsite() {
     <>
       <div className="font-marker text-gray-900 bg-white min-h-screen">
         <header
-          className={`fixed top-0 left-0 w-full z-50 transition-transform duration-500 ${
+          className={`fixed top-0 left-0 w-full z-50 transition-transform duration-500 bg-transparent ${
             showHeader ? 'translate-y-0' : '-translate-y-full'
           }`}
         >
           <div className="relative z-10 flex items-center justify-between px-6 py-4">
             {/* Left: Logo */}
             <div className="flex-shrink-0">
-              <img src="/images/kairo-logo.png" alt="Kairo Logo" className="h-20 w-auto" />
+              <img src="/images/kairo-logo.png" alt="Kairo Logo" className="h-16 w-auto" />
             </div>
 
-            {/* Center: Navigation */}
-            <nav className="flex gap-10 font-marker">
+            {/* Center: Desktop Navigation */}
+            <nav className="hidden md:flex gap-10 font-marker">
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'Ingredients', href: '#ingredients' },
@@ -75,8 +88,8 @@ export default function KairoWebsite() {
               ))}
             </nav>
 
-            {/* Right: Buy Now Button */}
-            <div className="flex-shrink-0">
+            {/* Right: Buy Now Button (Desktop only) */}
+            <div className="hidden md:flex flex-shrink-0">
               <a
                 href="#shop"
                 className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-2 rounded-full shadow-lg transition duration-300"
@@ -84,22 +97,70 @@ export default function KairoWebsite() {
                 Buy Now
               </a>
             </div>
+
+            {/* Hamburger Button (Mobile only) */}
+            <div className="md:hidden">
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-white focus:outline-none"
+              >
+                <svg className="w-8 h-8" fill="none" stroke="black" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          {mobileMenuOpen && (
+            <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 z-40">
+              <nav className="flex flex-col items-center gap-4">
+                {[
+                  { label: 'Home', href: '#home' },
+                  { label: 'Ingredients', href: '#ingredients' },
+                  { label: 'Shop', href: '#shop' },
+                  { label: 'Our Mission', href: '#ourmission' },
+                ].map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="text-lg text-black font-bold hover:text-pink-500 transition"
+                    onClick={() => setMobileMenuOpen(false)} // close after click
+                  >
+                    {item.label}
+                  </a>
+                ))}
+
+                <a
+                  href="#shop"
+                  className="mt-2 bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-2 rounded-full shadow-lg transition duration-300"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Buy Now
+                </a>
+              </nav>
+            </div>
+          )}
         </header>
 
         <section
           id="home"
           className="relative h-[100vh] flex items-center justify-center text-center text-white"
         >
-          {/* Background Image */}
+          {/* Background Image (Switch between desktop and mobile) */}
           <img
-            src="/images/hero_2.png"
+            src={isMobile ? '/images/hero_mobile.png' : '/images/hero_2.png'}
             alt="Lifestyle Background"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ filter: 'brightness(0.93) saturate(1.1) contrast(0.97)' }}
           />
 
-          {/* Foreground Button Only */}
+          {/* Foreground Button */}
           <div className="relative z-10 flex flex-col items-center mt-[30rem]">
             <a
               href="#shop"
@@ -496,12 +557,12 @@ export default function KairoWebsite() {
         {/* Section 8: Footer */}
         <footer className="relative bg-gradient-to-t from-gray-900 to-black text-white py-16 px-6 overflow-hidden">
           {/* Clear Floating Gummies */}
-          <img
+          {/* <img
             src="/images/floating-gummies.png"
             alt="Floating Gummies Background"
             className="absolute inset-0 w-full h-full object-cover opacity-25"
             style={{ filter: 'brightness(1.3) saturate(1.5) contrast(1.2)' }}
-          />
+          /> */}
 
           {/* Content Overlay */}
           <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
