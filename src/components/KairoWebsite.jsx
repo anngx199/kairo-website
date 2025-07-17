@@ -93,7 +93,7 @@ export default function KairoWebsite() {
         >
           {/* Background Image */}
           <img
-            src="/images/hero.png"
+            src="/images/hero_2.png"
             alt="Lifestyle Background"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ filter: 'brightness(0.93) saturate(1.1) contrast(0.97)' }}
