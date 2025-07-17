@@ -18,13 +18,43 @@ Button.propTypes = {
   className: PropTypes.string,
 }
 
+import { useEffect, useState } from 'react'
+
 export default function KairoWebsite() {
+  const [showHeader, setShowHeader] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        // Scrolling down
+        setShowHeader(false)
+      } else {
+        // Scrolling up
+        setShowHeader(true)
+      }
+      setLastScrollY(window.scrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
   return (
     <>
-      <div className="font-serif text-gray-900 bg-white min-h-screen">
-        <header className="fixed top-0 left-0 w-full z-50 bg-transparent">
-          <div className="relative z-10 flex justify-center py-4">
-            <nav className="flex gap-14 font-marker">
+      <div className="font-marker text-gray-900 bg-white min-h-screen">
+        <header
+          className={`fixed top-0 left-0 w-full z-50 transition-transform duration-500 ${
+            showHeader ? 'translate-y-0' : '-translate-y-full'
+          }`}
+        >
+          <div className="relative z-10 flex items-center justify-between px-6 py-4">
+            {/* Left: Logo */}
+            <div className="flex-shrink-0">
+              <img src="/images/kairo-logo.png" alt="Kairo Logo" className="h-20 w-auto" />
+            </div>
+
+            {/* Center: Navigation */}
+            <nav className="flex gap-10 font-marker">
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'Ingredients', href: '#ingredients' },
@@ -34,9 +64,9 @@ export default function KairoWebsite() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-4xl text-white font-extrabold tracking-wide hover:opacity-90 transition-all duration-300"
+                  className="text-2xl md:text-3xl text-white font-extrabold tracking-wide hover:opacity-90 transition-all duration-300"
                   style={{
-                    WebkitTextStroke: '2.5px black',
+                    WebkitTextStroke: '2px black',
                     textShadow: '0 2px 3px rgba(0,0,0,0.6)',
                   }}
                 >
@@ -44,6 +74,16 @@ export default function KairoWebsite() {
                 </a>
               ))}
             </nav>
+
+            {/* Right: Buy Now Button */}
+            <div className="flex-shrink-0">
+              <a
+                href="#shop"
+                className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-2 rounded-full shadow-lg transition duration-300"
+              >
+                Buy Now
+              </a>
+            </div>
           </div>
         </header>
 
@@ -175,7 +215,7 @@ export default function KairoWebsite() {
         </section>
 
         {/* Section 3: Introduction */}
-        <section className="py-16 px-6 text-center font-serif bg-gray-100 text-gray-800">
+        <section className="py-16 px-6 text-center font-marker bg-gray-100 text-gray-800">
           <h3
             className="text-4xl font-bold mb-6 bg-gradient-to-rbg-gradient-to-r from-red-500 via-green-500 to-yellow-400
  bg-clip-text text-transparent"
