@@ -22,57 +22,28 @@ export default function KairoWebsite() {
   return (
     <>
       <div className="font-serif text-gray-900 bg-white min-h-screen">
-        <header className="fixed top-0 left-0 right-0 z-50 bg-white shadow-md py-3 px-6">
-          {/* Floating Gummies Background */}
-          <img
-            src="/images/floating-gummies.png"
-            alt="Floating Gummies"
-            className="absolute inset-0 w-full h-full object-cover opacity-90 pointer-events-none z-0"
-            style={{
-              filter: 'contrast(1.2) saturate(1.3)',
-            }}
-          />
-
-          {/* Header Content */}
-          <div className="relative z-10 flex items-center justify-between">
-            {/* Logo */}
-            <img src="/images/kairo-logo.png" alt="Kairo Logo" className="h-16 w-auto" />
-
-            {/* Navigation */}
-            <nav className="flex-1 flex justify-center gap-12">
-              <a
-                href="#home"
-                className="text-3xl font-bold text-blue-600 hover:opacity-80 transition"
-              >
-                Home
-              </a>
-              <a
-                href="#ingredients"
-                className="text-3xl font-bold text-green-600 hover:opacity-80 transition"
-              >
-                Ingredients
-              </a>
-              <a
-                href="#shop"
-                className="text-3xl font-bold text-yellow-600 hover:opacity-80 transition"
-              >
-                Shop
-              </a>
-              <a
-                href="#ourmission"
-                className="text-3xl font-bold text-purple-600 hover:opacity-80 transition"
-              >
-                Our Mission
-              </a>
+        <header className="fixed top-0 left-0 w-full z-50 bg-transparent">
+          <div className="relative z-10 flex justify-center py-4">
+            <nav className="flex gap-14 font-marker">
+              {[
+                { label: 'Home', href: '#home' },
+                { label: 'Ingredients', href: '#ingredients' },
+                { label: 'Shop', href: '#shop' },
+                { label: 'Our Mission', href: '#ourmission' },
+              ].map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  className="text-4xl text-white font-extrabold tracking-wide hover:opacity-90 transition-all duration-300"
+                  style={{
+                    WebkitTextStroke: '2.5px black',
+                    textShadow: '0 2px 3px rgba(0,0,0,0.6)',
+                  }}
+                >
+                  {item.label}
+                </a>
+              ))}
             </nav>
-
-            {/* Buy Button */}
-            <a
-              href="#shop"
-              className="text-white font-semibold rounded-full px-5 py-2 bg-gradient-to-r from-pink-600 via-yellow-500 to-green-600 shadow-md hover:scale-105 transition-all duration-300 ease-in-out"
-            >
-              Buy Now
-            </a>
           </div>
         </header>
 
@@ -88,44 +59,82 @@ export default function KairoWebsite() {
             style={{ filter: 'brightness(0.93) saturate(1.1) contrast(0.97)' }}
           />
 
-          {/* Foreground Content */}
-          <div className="relative z-10 max-w-5xl px-6 flex flex-col items-center mt-[25rem]">
-            {/* Headline */}
-            <h2 className="text-4xl md:text-5xl font-bold text-center text-transparent bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-200 bg-clip-text mb-4">
-              <Typewriter
-                words={['Unlock Your Potential, Naturally!']}
-                loop={1}
-                typeSpeed={60}
-                deleteSpeed={0}
-                delaySpeed={1000}
-              />
-            </h2>
-
-            {/* Description */}
-            <p className="text-lg md:text-xl text-white leading-relaxed mb-6">
-              Experience the vibrant synergy of nature&apos;s finest ingredients with Kairo&apos;s
-              Vegan Sweets. Our Seamoss Mango Gummies are more than just a treat; they&apos;re your
-              daily boost of brilliance, crafted to sharpen your focus and energize your day, the
-              delicious vegan way!
-            </p>
-
-            {/* CTA Button */}
+          {/* Foreground Button Only */}
+          <div className="relative z-10 flex flex-col items-center mt-[30rem]">
             <a
               href="#shop"
-              className="inline-block px-8 py-3 text-white font-bold rounded-full text-lg transition bg-gradient-to-r from-pink-600 via-yellow-500 to-green-600 hover:opacity-90 shadow-lg"
+              className="inline-block px-8 py-3 text-black font-extrabold text-lg rounded-full bg-white shadow-xl hover:scale-105 transition"
+              style={{ textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}
             >
               Shop The Gummies
             </a>
           </div>
         </section>
 
-        {/* Section 4: Star Ingredients */}
-        <section id="ingredients" className="py-16 bg-white">
-          <h3 className="text-3xl font-bold text-center mb-12 bg-gradient-to-r from-pink-500 via-yellow-400 to-green-500 bg-clip-text text-transparent">
-            Meet Our Star Ingredients
-          </h3>
+        <section className="bg-gray-100 py-16 text-center px-6">
+          <div className="flex justify-center mb-12 z-10 relative">
+            <img
+              src="/images/headline.png"
+              alt="Unlock Your Potential, Naturally!"
+              className="w-[70%] max-w-[360px]"
+            />
+          </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12">
+          <p className="text-lg md:text-xl text-gray-800 max-w-4xl mx-auto leading-relaxed">
+            Experience the vibrant synergy of nature&apos;s finest ingredients with Kairo&apos;s
+            Vegan Sweets. Our Seamoss Mango Gummies are more than just a treat; they&apos;re your
+            daily boost of brilliance, crafted to sharpen your focus and energize your day, the
+            delicious vegan way!
+          </p>
+        </section>
+
+        {/* Section 4: Star Ingredients */}
+        <section id="ingredients" className="py-16 bg-white relative overflow-hidden">
+          {/* Heading */}
+          <div className="flex justify-center mb-12 z-10 relative">
+            <img
+              src="/images/ingredient_headline.png"
+              alt="Meet Our Star Ingredients"
+              className="w-[70%] max-w-[360px]"
+            />
+          </div>
+
+          {/* Floating Gummies - Styled PNGs (with extra randomness) */}
+          <div className="relative z-0">
+            <img
+              src="/images/floating-gummies-a.png"
+              className="absolute top-0 left-0 w-16 animate-float-slow"
+            />
+            <img
+              src="/images/floating-gummies-b.png"
+              className="absolute top-10 right-10 w-14 animate-float-medium"
+            />
+            <img
+              src="/images/floating-gummies-c.png"
+              className="absolute bottom-6 left-12 w-12 animate-float-fast"
+            />
+            <img
+              src="/images/floating-gummies-d.png"
+              className="absolute bottom-0 right-20 w-16 animate-float-medium"
+            />
+
+            {/* Extra Gummies */}
+            <img
+              src="/images/floating-gummies-c.png"
+              className="absolute top-[25%] left-[20%] w-10 rotate-[15deg] opacity-80 animate-float-slow"
+            />
+            <img
+              src="/images/floating-gummies-b.png"
+              className="absolute bottom-[20%] right-[15%] w-8 rotate-[345deg] opacity-75 animate-float-fast"
+            />
+            <img
+              src="/images/floating-gummies-a.png"
+              className="absolute top-[55%] left-[60%] w-14 rotate-[30deg] opacity-90 animate-float-medium"
+            />
+          </div>
+
+          {/* Ingredient Cards */}
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 z-10 relative">
             {[
               {
                 img: '/images/sea-moss.jpg',
@@ -147,8 +156,8 @@ export default function KairoWebsite() {
                 key={item.title}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false }} // 👈 enables repeat on scroll
-                transition={{ duration: 1.2, delay: index * 0.3 }} // 👈 slower and staggered
+                viewport={{ once: false }}
+                transition={{ duration: 1.2, delay: index * 0.3 }}
                 className="max-w-xs text-center"
               >
                 <div className="w-40 h-40 mx-auto rounded-full overflow-hidden shadow-lg">
@@ -188,9 +197,14 @@ export default function KairoWebsite() {
 
         {/* Section 5: Product Benefits */}
         <section className="py-20 px-6 bg-white text-center">
-          <h3 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-pink-500 via-yellow-400 to-green-500 text-transparent bg-clip-text">
-            Our Brilliant Minds Focus Gummies
-          </h3>
+          {/* Heading */}
+          <div className="flex justify-center mb-12 z-10 relative">
+            <img
+              src="/images/benefits_headline.png"
+              alt="Our Brilliant Minds Focus Gummies"
+              className="w-[70%] max-w-[360px]"
+            />
+          </div>
 
           <p className="max-w-2xl mx-auto text-gray-700 text-lg mb-8">
             Mental clarity and sustained focus powered by nature. BMF is your tasty partner in
@@ -235,14 +249,13 @@ export default function KairoWebsite() {
         {/* Section 6: Shop */}
         <section id="shop" className="py-20 bg-gray-100 px-6">
           {/* Animated Heading */}
-          <motion.h3
-            className="text-4xl font-extrabold text-center mb-4 bg-gradient-to-r from-red-500 via-green-500 to-yellow-400
- text-transparent bg-clip-text"
-            animate={{ y: [0, -5, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
-          >
-            Get Yours Today & Feel the Difference!
-          </motion.h3>
+          <div className="flex justify-center mb-12 z-10 relative">
+            <img
+              src="/images/shop_headline.png"
+              alt="Get Yours Today & Feel the Difference!"
+              className="w-[70%] max-w-[360px]"
+            />
+          </div>
 
           <motion.p
             className="text-center text-lg font-medium text-black mb-10"
@@ -304,15 +317,13 @@ export default function KairoWebsite() {
           className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50 to-white"
         >
           {/* Header */}
-          <motion.h3
-            className="text-4xl font-extrabold text-center mb-12 bg-gradient-to-r from-yellow-400 via-pink-500 to-green-500 bg-clip-text text-transparent"
-            initial={{ scale: 0.8, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Our Mission
-          </motion.h3>
+          <div className="flex justify-center mb-12 z-10 relative">
+            <img
+              src="/images/our_mission_headline.png"
+              alt="Our Mission"
+              className="w-[70%] max-w-[360px]"
+            />
+          </div>
 
           {/* Paragraph 1 */}
           <motion.p
@@ -392,15 +403,13 @@ export default function KairoWebsite() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <motion.h4
-              className="text-3xl sm:text-4xl font-extrabold mb-6 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 bg-clip-text text-transparent"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              viewport={{ once: true }}
-            >
-              The How To App & Golden Competition
-            </motion.h4>
+            <div className="flex justify-center mb-12 z-10 relative">
+              <img
+                src="/images/competition_headline.png"
+                alt="The How To App & Golden Competition"
+                className="w-[70%] max-w-[360px]"
+              />
+            </div>
 
             <motion.p
               className="text-lg sm:text-xl text-gray-800 leading-relaxed mb-6"
