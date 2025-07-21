@@ -19,8 +19,11 @@ export default {
       },
       fontFamily: {
         comic: ['"Luckiest Guy"', 'cursive'],
-        anton: ['Bebas Neue', 'sans-serif'],
         marker: ['"Permanent Marker"', 'cursive'],
+        sweet: ['"Chewy"', 'cursive'],
+        body: ['"Quicksand"', 'sans-serif'],
+        display: ['"Baloo 2"', 'cursive'],
+        modern: ['"Poppins"', 'sans-serif'],
       },
     },
   },

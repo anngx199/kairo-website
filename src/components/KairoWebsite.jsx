@@ -7,7 +7,7 @@ import CheckoutButton from './CheckoutButton'
 const Button = ({ children, className = '', ...props }) => (
   <button
     {...props}
-    className={`bg-gradient-to-r from-pink-600 via-yellow-500 to-green-600 text-white font-semibold rounded-full px-6 py-3 shadow-md hover:scale-105 transition-all duration-300 ease-in-out ${className}`}
+    className={`bg-gradient-to-r from-lime-500 via-lime-400 to-lime-600 text-white font-semibold rounded-full px-6 py-3 shadow-md hover:scale-105 transition-all duration-300 ease-in-out ${className}`}
   >
     {children}
   </button>
@@ -54,7 +54,7 @@ export default function KairoWebsite() {
   }, [lastScrollY])
   return (
     <>
-      <div className="font-marker text-gray-900 bg-white min-h-screen">
+      <div className="font-display text-gray-900 bg-white min-h-screen">
         <header
           className={`fixed top-0 left-0 w-full z-50 transition-transform duration-500 bg-transparent ${
             showHeader ? 'translate-y-0' : '-translate-y-full'
@@ -67,7 +67,7 @@ export default function KairoWebsite() {
             </div>
 
             {/* Center: Desktop Navigation */}
-            <nav className="hidden md:flex gap-10 font-marker">
+            <nav className="hidden md:flex gap-10 font-display">
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'Ingredients', href: '#ingredients' },
@@ -88,15 +88,7 @@ export default function KairoWebsite() {
               ))}
             </nav>
 
-            {/* Right: Buy Now Button (Desktop only) */}
-            <div className="hidden md:flex flex-shrink-0">
-              <a
-                href="#shop"
-                className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-2 rounded-full shadow-lg transition duration-300"
-              >
-                Buy Now
-              </a>
-            </div>
+            <Button href="#shop">Buy Now</Button>
 
             {/* Hamburger Button (Mobile only) */}
             <div className="md:hidden">
@@ -154,7 +146,7 @@ export default function KairoWebsite() {
         >
           {/* Background Image (Switch between desktop and mobile) */}
           <img
-            src={isMobile ? '/images/hero_mobile.png' : '/images/hero_2.png'}
+            src={isMobile ? '/images/hero_mobile.png' : '/images/hero.png'}
             alt="Lifestyle Background"
             className="absolute inset-0 w-full h-full object-cover"
             style={{ filter: 'brightness(0.93) saturate(1.1) contrast(0.97)' }}
@@ -164,7 +156,7 @@ export default function KairoWebsite() {
           <div className="relative z-10 flex flex-col items-center mt-[30rem]">
             <a
               href="#shop"
-              className="inline-block px-8 py-3 text-black font-extrabold text-lg rounded-full bg-white shadow-xl hover:scale-105 transition"
+              className="inline-block px-8 py-3 text-white font-extrabold text-lg rounded-full bg-lime-500 shadow-xl hover:scale-105 transition"
               style={{ textShadow: '0 1px 2px rgba(0,0,0,0.2)' }}
             >
               Shop The Gummies
@@ -202,35 +194,40 @@ export default function KairoWebsite() {
 
           {/* Floating Gummies - Styled PNGs (with extra randomness) */}
           <div className="relative z-0">
+            {/* Big top-left gummy */}
             <img
               src="/images/floating-gummies-a.png"
-              className="absolute top-0 left-0 w-16 animate-float-slow"
-            />
-            <img
-              src="/images/floating-gummies-b.png"
-              className="absolute top-10 right-10 w-14 animate-float-medium"
-            />
-            <img
-              src="/images/floating-gummies-c.png"
-              className="absolute bottom-6 left-12 w-12 animate-float-fast"
-            />
-            <img
-              src="/images/floating-gummies-d.png"
-              className="absolute bottom-0 right-20 w-16 animate-float-medium"
+              className="absolute top-[0%] left-[5%] w-28 rotate-[10deg] opacity-90 animate-float-slow"
             />
 
-            {/* Extra Gummies */}
-            <img
-              src="/images/floating-gummies-c.png"
-              className="absolute top-[25%] left-[20%] w-10 rotate-[15deg] opacity-80 animate-float-slow"
-            />
+            {/* Small top-right gummy */}
             <img
               src="/images/floating-gummies-b.png"
-              className="absolute bottom-[20%] right-[15%] w-8 rotate-[345deg] opacity-75 animate-float-fast"
+              className="absolute top-[8%] right-[10%] w-10 rotate-[340deg] opacity-80 animate-float-medium"
             />
+
+            {/* Medium bottom-left gummy */}
+            <img
+              src="/images/floating-gummies-c.png"
+              className="absolute bottom-[10%] left-[12%] w-14 rotate-[20deg] opacity-85 animate-float-fast"
+            />
+
+            {/* Large bottom-right gummy */}
+            <img
+              src="/images/floating-gummies-d.png"
+              className="absolute bottom-[0%] right-[18%] w-32 rotate-[5deg] opacity-75 animate-float-medium"
+            />
+
+            {/* Extra tiny center-left */}
+            <img
+              src="/images/floating-gummies-c.png"
+              className="absolute top-[50%] left-[5%] w-8 rotate-[45deg] opacity-60 animate-float-slow"
+            />
+
+            {/* Tiny far-bottom right */}
             <img
               src="/images/floating-gummies-a.png"
-              className="absolute top-[55%] left-[60%] w-14 rotate-[30deg] opacity-90 animate-float-medium"
+              className="absolute bottom-[5%] right-[2%] w-6 rotate-[15deg] opacity-65 animate-float-fast"
             />
           </div>
 
@@ -276,9 +273,9 @@ export default function KairoWebsite() {
         </section>
 
         {/* Section 3: Introduction */}
-        <section className="py-16 px-6 text-center font-marker bg-gray-100 text-gray-800">
+        <section className="py-16 px-6 text-center font-display bg-gray-100 text-gray-800">
           <h3
-            className="text-4xl font-bold mb-6 bg-gradient-to-rbg-gradient-to-r from-red-500 via-green-500 to-yellow-400
+            className="text-4xl font-display mb-6 bg-gradient-to-r from-red-500 via-green-500 to-yellow-400
  bg-clip-text text-transparent"
           >
             <Typewriter
@@ -311,6 +308,26 @@ export default function KairoWebsite() {
             Mental clarity and sustained focus powered by nature. BMF is your tasty partner in
             performance.
           </p>
+
+          <div className="relative z-0">
+            {/* 4 big gummies with random positions */}
+            <img
+              src="/images/floating-gummies-a.png"
+              className="absolute top-[5%] left-[10%] w-28 rotate-[10deg] opacity-90 animate-float-slow"
+            />
+            <img
+              src="/images/floating-gummies-b.png"
+              className="absolute top-[30%] right-[5%] w-32 rotate-[350deg] opacity-85 animate-float-medium"
+            />
+            <img
+              src="/images/floating-gummies-c.png"
+              className="absolute bottom-[15%] left-[15%] w-24 rotate-[25deg] opacity-80 animate-float-fast"
+            />
+            <img
+              src="/images/floating-gummies-d.png"
+              className="absolute bottom-[5%] right-[20%] w-28 rotate-[5deg] opacity-75 animate-float-medium"
+            />
+          </div>
 
           <div className="flex flex-wrap justify-center gap-3 mb-12">
             {['Zero Sugar', '100% Vegan', 'Gluten-Free', 'Non-GMO', '15 Gummies Per Pack'].map(
@@ -367,6 +384,26 @@ export default function KairoWebsite() {
           >
             Choose your path to brilliance.
           </motion.p>
+
+          <div className="relative z-0">
+            {/* 4 big gummies with random positions */}
+            <img
+              src="/images/floating-gummies-a.png"
+              className="absolute top-[5%] left-[10%] w-28 rotate-[10deg] opacity-90 animate-float-slow"
+            />
+            <img
+              src="/images/floating-gummies-b.png"
+              className="absolute top-[30%] right-[5%] w-32 rotate-[350deg] opacity-85 animate-float-medium"
+            />
+            <img
+              src="/images/floating-gummies-c.png"
+              className="absolute bottom-[15%] left-[15%] w-24 rotate-[25deg] opacity-80 animate-float-fast"
+            />
+            <img
+              src="/images/floating-gummies-d.png"
+              className="absolute bottom-[5%] right-[20%] w-28 rotate-[5deg] opacity-75 animate-float-medium"
+            />
+          </div>
 
           {/* Product Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -440,6 +477,25 @@ export default function KairoWebsite() {
             plant-based, ethically sourced supplements that nourish the body from the inside out —
             making holistic health accessible, enjoyable, and sustainable for everyone.
           </motion.p>
+          <div className="relative z-0">
+            {/* 4 big gummies with randomized positions and sizes */}
+            <img
+              src="/images/floating-gummies-a.png"
+              className="absolute top-[8%] left-[5%] w-32 rotate-[15deg] opacity-90 animate-float-medium"
+            />
+            <img
+              src="/images/floating-gummies-b.png"
+              className="absolute top-[50%] right-[8%] w-24 rotate-[345deg] opacity-85 animate-float-slow"
+            />
+            {/* <img
+              src="/images/floating-gummies-c.png"
+              className="absolute bottom-[10%] left-[25%] w-28 rotate-[20deg] opacity-80 animate-float-fast"
+            /> */}
+            <img
+              src="/images/floating-gummies-d.png"
+              className="absolute bottom-[20%] right-[12%] w-36 rotate-[5deg] opacity-75 animate-float-medium"
+            />
+          </div>
 
           {/* Hero Image */}
           <motion.div
@@ -469,6 +525,26 @@ export default function KairoWebsite() {
             that taking care of yourself should feel as good as it tastes. Enjoy us on this journey
             because health is wealth.
           </motion.p>
+
+          <div className="relative z-0">
+            {/* 4 big gummies with random positions */}
+            <img
+              src="/images/floating-gummies-a.png"
+              className="absolute top-[5%] left-[10%] w-28 rotate-[10deg] opacity-90 animate-float-slow"
+            />
+            <img
+              src="/images/floating-gummies-b.png"
+              className="absolute top-[30%] right-[5%] w-32 rotate-[350deg] opacity-85 animate-float-medium"
+            />
+            <img
+              src="/images/floating-gummies-c.png"
+              className="absolute bottom-[15%] left-[15%] w-24 rotate-[25deg] opacity-80 animate-float-fast"
+            />
+            <img
+              src="/images/floating-gummies-d.png"
+              className="absolute bottom-[5%] right-[20%] w-28 rotate-[5deg] opacity-75 animate-float-medium"
+            />
+          </div>
 
           {/* Slogan */}
           <motion.blockquote
@@ -536,6 +612,18 @@ export default function KairoWebsite() {
             >
               Scan the QR code below to enter the competition and join the waitlist!
             </motion.p>
+
+            <div className="relative z-0">
+              {/* 4 big gummies with randomized positions and sizes */}
+              <img
+                src="/images/floating-gummies-a.png"
+                className="absolute top-[8%] left-[5%] w-32 rotate-[15deg] opacity-90 animate-float-medium"
+              />
+              <img
+                src="/images/floating-gummies-b.png"
+                className="absolute top-[50%] right-[8%] w-24 rotate-[345deg] opacity-85 animate-float-slow"
+              />
+            </div>
 
             {/* QR Image */}
             <motion.div
