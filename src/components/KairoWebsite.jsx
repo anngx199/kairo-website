@@ -277,17 +277,6 @@ export default function KairoWebsite() {
 
         {/* Section 5: Product Benefits */}
         <section className="py-20 px-6 bg-white text-center">
-          <div className="relative z-0">
-            {/* 4 big gummies with random positions */}
-            <img
-              src="/images/floating-gummies-a.png"
-              className="absolute top-[5%] left-[10%] w-12 md:w-24 rotate-[10deg] opacity-90 animate-float-slow"
-            />
-            <img
-              src="/images/floating-gummies-b.png"
-              className="absolute top-[30%] right-[5%] w-12 md:w-32 rotate-[350deg] opacity-85 animate-float-medium"
-            />
-          </div>
           {/* Heading */}
           <div className="flex justify-center mb-12 z-10 relative">
             <img
@@ -313,6 +302,18 @@ export default function KairoWebsite() {
                 </span>
               )
             )}
+          </div>
+
+          <div className="relative z-0">
+            {/* 4 big gummies with random positions */}
+            <img
+              src="/images/floating-gummies-a.png"
+              className="absolute top-[5%] left-[10%] w-12 md:w-24 rotate-[10deg] opacity-90 animate-float-slow"
+            />
+            <img
+              src="/images/floating-gummies-b.png"
+              className="absolute top-[30%] right-[5%] w-12 md:w-32 rotate-[350deg] opacity-85 animate-float-medium"
+            />
           </div>
 
           {/* Product Images with glow effect */}
@@ -349,24 +350,24 @@ export default function KairoWebsite() {
         </section>
         {/* Section 6: Shop */}
         <section id="shop" className="py-20 bg-gray-100 px-6">
-          <div className="relative z-0">
-            {/* 4 big gummies with random positions */}
-            <img
-              src="/images/floating-gummies-a.png"
-              className="absolute top-[5%] left-[10%] w-12 md:w-28 rotate-[10deg] opacity-90 animate-float-slow"
-            />
-            <img
-              src="/images/floating-gummies-b.png"
-              className="absolute top-[30%] right-[5%] w-12 md:w-32 rotate-[350deg] opacity-85 animate-float-medium"
-            />
-          </div>
-
           {/* Animated Heading */}
           <div className="flex justify-center mb-12 z-10 relative">
             <img
               src="/images/shop_headline.png"
               alt="Get Yours Today & Feel the Difference!"
               className="w-[70%] max-w-[360px]"
+            />
+          </div>
+
+          <div className="relative z-0">
+            {/* 4 big gummies with random positions */}
+            <img
+              src="/images/floating-gummies-a.png"
+              className="absolute top-[5%] left-[2%] w-12 md:w-28 rotate-[10deg] opacity-90 animate-float-slow"
+            />
+            <img
+              src="/images/floating-gummies-b.png"
+              className="absolute top-[30%] right-[2%] w-12 md:w-32 rotate-[350deg] opacity-85 animate-float-medium"
             />
           </div>
 
@@ -440,6 +441,15 @@ export default function KairoWebsite() {
           id="ourmission"
           className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-gray-50 to-white"
         >
+          {/* Header */}
+          <div className="flex justify-center mb-12 z-10 relative">
+            <img
+              src="/images/our_mission_headline.png"
+              alt="Our Mission"
+              className="w-[70%] max-w-[360px]"
+            />
+          </div>
+
           <div className="relative z-0">
             {/* 4 big gummies with randomized positions and sizes */}
             <img
@@ -449,14 +459,6 @@ export default function KairoWebsite() {
             <img
               src="/images/floating-gummies-b.png"
               className="absolute top-[50%] right-[8%] w-16 md:w-32 rotate-[345deg] opacity-85 animate-float-slow"
-            />
-          </div>
-          {/* Header */}
-          <div className="flex justify-center mb-12 z-10 relative">
-            <img
-              src="/images/our_mission_headline.png"
-              alt="Our Mission"
-              className="w-[70%] max-w-[360px]"
             />
           </div>
 
@@ -508,19 +510,19 @@ export default function KairoWebsite() {
             {/* 4 big gummies with random positions */}
             <img
               src="/images/floating-gummies-a.png"
-              className="absolute top-[5%] left-[10%] w-12 md:w-28 rotate-[10deg] opacity-90 animate-float-slow"
+              className="absolute top-[5%] left-[10%] w-8 md:w-28 rotate-[10deg] opacity-90 animate-float-slow"
             />
             <img
               src="/images/floating-gummies-b.png"
-              className="absolute top-[30%] right-[5%] w-12 md:w-20 rotate-[350deg] opacity-85 animate-float-medium"
+              className="absolute top-[30%] right-[5%] w-4 md:w-20 rotate-[350deg] opacity-85 animate-float-medium"
             />
             <img
               src="/images/floating-gummies-c.png"
-              className="absolute bottom-[15%] left-[5%] w-12 md:w-28 rotate-[25deg] opacity-80 animate-float-fast"
+              className="absolute bottom-[15%] left-[5%] w-4 md:w-28 rotate-[25deg] opacity-80 animate-float-fast"
             />
             <img
               src="/images/floating-gummies-d.png"
-              className="absolute bottom-[5%] right-[10%] w-12 md:w-36 rotate-[5deg] opacity-75 animate-float-medium"
+              className="absolute bottom-[5%] right-[10%] w-8 md:w-36 rotate-[5deg] opacity-75 animate-float-medium"
             />
           </div>
 
@@ -595,11 +597,11 @@ export default function KairoWebsite() {
               {/* 4 big gummies with randomized positions and sizes */}
               <img
                 src="/images/floating-gummies-a.png"
-                className="absolute top-[8%] left-[5%] w-12 md:w-32 rotate-[15deg] opacity-90 animate-float-medium"
+                className="absolute top-[8%] left-[2%] w-12 md:w-32 rotate-[15deg] opacity-90 animate-float-medium"
               />
               <img
                 src="/images/floating-gummies-b.png"
-                className="absolute top-[50%] right-[8%] w-12 md:w-36 rotate-[345deg] opacity-85 animate-float-slow"
+                className="absolute top-[50%] right-[2%] w-12 md:w-36 rotate-[345deg] opacity-85 animate-float-slow"
               />
             </div>
 
