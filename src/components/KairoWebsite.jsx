@@ -6,7 +6,7 @@ import CheckoutButton from './CheckoutButton'
 const Button = ({ children, className = '', ...props }) => (
   <button
     {...props}
-    className={`bg-gradient-to-r from-lime-500 via-lime-400 to-lime-600 text-white font-semibold rounded-full px-6 py-3 shadow-md hover:scale-105 transition-all duration-300 ease-in-out ${className}`}
+    className={`bg-lime-500 text-white font-semibold rounded-full px-6 py-3 shadow-md hover:scale-105 transition-all duration-300 ease-in-out ${className}`}
   >
     {children}
   </button>
@@ -55,14 +55,14 @@ export default function KairoWebsite() {
     <>
       <div className="font-display text-gray-900 bg-white min-h-screen">
         <header
-          className={`fixed top-0 left-0 w-full z-50 transition-transform duration-500 bg-transparent ${
+          className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[95%] max-w-[1200px] bg-white/90 backdrop-blur-md rounded-full shadow-xl border border-gray-200 px-6 py-3 transition-transform duration-500 ${
             showHeader ? 'translate-y-0' : '-translate-y-full'
           }`}
         >
-          <div className="relative z-10 flex items-center justify-between px-6 py-4">
+          <div className="flex items-center justify-between">
             {/* Left: Logo */}
             <div className="flex-shrink-0">
-              <img src="/images/kairo-logo.png" alt="Kairo Logo" className="h-16 w-auto" />
+              <img src="/images/kairo-logo.png" alt="Kairo Logo" className="h-14 w-auto" />
             </div>
 
             {/* Center: Desktop Navigation */}
@@ -76,26 +76,36 @@ export default function KairoWebsite() {
                 <a
                   key={item.label}
                   href={item.href}
-                  className="text-2xl md:text-3xl text-white font-extrabold tracking-wide hover:opacity-90 transition-all duration-300"
-                  style={{
-                    WebkitTextStroke: '2px black',
-                    textShadow: '0 2px 3px rgba(0,0,0,0.6)',
-                  }}
+                  className="text-lg font-semibold text-gray-700 hover:text-black transition"
                 >
                   {item.label}
                 </a>
               ))}
             </nav>
 
-            <Button href="#shop">Buy Now</Button>
+            {/* Login & Register Buttons */}
+            <div className="hidden md:flex gap-3">
+              <a
+                href="/login"
+                className="text-gray-700 font-semibold hover:text-black transition px-4 py-2"
+              >
+                Login
+              </a>
+              <a
+                href="/register"
+                className="bg-green-500 hover:bg-green-600 text-white font-bold px-5 py-2 rounded-full transition duration-300"
+              >
+                Register
+              </a>
+            </div>
 
-            {/* Hamburger Button (Mobile only) */}
+            {/* Hamburger: Mobile */}
             <div className="md:hidden">
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-white focus:outline-none"
+                className="text-gray-800 focus:outline-none"
               >
-                <svg className="w-8 h-8" fill="none" stroke="black" viewBox="0 0 24 24">
+                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -107,10 +117,10 @@ export default function KairoWebsite() {
             </div>
           </div>
 
-          {/* Mobile Menu Dropdown */}
+          {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-4 z-40">
-              <nav className="flex flex-col items-center gap-4">
+            <div className="md:hidden mt-3 bg-white rounded-xl shadow-lg py-4 px-6">
+              <nav className="flex flex-col items-start gap-4">
                 {[
                   { label: 'Home', href: '#home' },
                   { label: 'Ingredients', href: '#ingredients' },
@@ -120,20 +130,29 @@ export default function KairoWebsite() {
                   <a
                     key={item.label}
                     href={item.href}
-                    className="text-lg text-black font-bold hover:text-pink-500 transition"
-                    onClick={() => setMobileMenuOpen(false)} // close after click
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-base font-semibold text-gray-800 hover:text-pink-600 transition"
                   >
                     {item.label}
                   </a>
                 ))}
 
-                <a
-                  href="#shop"
-                  className="mt-2 bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-6 py-2 rounded-full shadow-lg transition duration-300"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Buy Now
-                </a>
+                <div className="mt-4 flex gap-4">
+                  <a
+                    href="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-gray-700 font-semibold hover:text-black transition"
+                  >
+                    Login
+                  </a>
+                  <a
+                    href="/register"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="bg-green-500 hover:bg-green-600 text-white font-bold px-5 py-2 rounded-full transition duration-300"
+                  >
+                    Register
+                  </a>
+                </div>
               </nav>
             </div>
           )}
@@ -148,7 +167,7 @@ export default function KairoWebsite() {
             src={isMobile ? '/images/hero_mobile.png' : '/images/hero.png'}
             alt="Lifestyle Background"
             className="absolute inset-0 w-full h-full object-cover"
-            style={{ filter: 'brightness(0.93) saturate(1.1) contrast(0.97)' }}
+            style={{ filter: 'brightness(1) saturate(1.1) contrast(0.97)' }}
           />
 
           {/* Foreground Button */}
@@ -191,11 +210,11 @@ export default function KairoWebsite() {
             />
           </div>
 
-          {/* Floating Gummies - Styled PNGs (with extra randomness) */}
+          {/* Floating Gummies*/}
           <div className="relative z-0">
             {/* Big top-left gummy */}
             <img
-              src="/images/floating-gummies-a.png"
+              src="/images/mango.png"
               className="absolute top-[0%] left-[5%] w-20 md:w-28 rotate-[10deg] opacity-90 animate-float-slow"
             />
 
@@ -213,7 +232,7 @@ export default function KairoWebsite() {
 
             {/* Large bottom-right gummy */}
             <img
-              src="/images/floating-gummies-d.png"
+              src="/images/mango_b.png"
               className="absolute bottom-[0%] right-[18%] w-12 md:w-32 rotate-[5deg] opacity-75 animate-float-medium"
             />
           </div>
@@ -339,7 +358,7 @@ export default function KairoWebsite() {
           </div>
           <div className="relative z-0">
             <img
-              src="/images/floating-gummies-c.png"
+              src="/images/mango.png"
               className="absolute bottom-[1%] left-[15%] w-12 md:w-28 rotate-[25deg] opacity-80 animate-float-fast"
             />
             <img
@@ -362,7 +381,7 @@ export default function KairoWebsite() {
           <div className="relative z-0">
             {/* 4 big gummies with random positions */}
             <img
-              src="/images/floating-gummies-a.png"
+              src="/images/mango.png"
               className="absolute top-[5%] left-[2%] w-12 md:w-28 rotate-[10deg] opacity-90 animate-float-slow"
             />
             <img
@@ -431,7 +450,7 @@ export default function KairoWebsite() {
               className="absolute bottom-[15%] left-[10%] w-16 md:w-28 rotate-[25deg] opacity-80 animate-float-fast"
             />
             <img
-              src="/images/floating-gummies-d.png"
+              src="/images/mango_b.png"
               className="absolute bottom-[5%] right-[5%] w-12 md:w-28 rotate-[5deg] opacity-75 animate-float-medium"
             />
           </div>
@@ -448,7 +467,7 @@ export default function KairoWebsite() {
               className="absolute top-[8%] left-[2%] w-8 md:w-20 rotate-[15deg] opacity-90 animate-float-medium"
             />
             <img
-              src="/images/floating-gummies-b.png"
+              src="/images/mango.png"
               className="absolute top-[50%] right-[1%] w-16 md:w-32 rotate-[345deg] opacity-85 animate-float-slow"
             />
           </div>
@@ -584,7 +603,7 @@ export default function KairoWebsite() {
             </motion.p>
 
             <motion.p
-              className="text-base sm:text-lg font-semibold text-blue-700 mb-10"
+              className="text-base sm:text-lg font-semibold text-green-500 mb-10"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.3 }}
