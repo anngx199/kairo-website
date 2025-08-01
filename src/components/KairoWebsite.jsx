@@ -55,72 +55,74 @@ export default function KairoWebsite() {
     <>
       <div className="font-display text-gray-900 bg-white min-h-screen">
         <header
-          className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-[95%] max-w-[1200px] bg-white/90 backdrop-blur-md rounded-full shadow-xl border border-gray-200 px-6 py-3 transition-transform duration-500 ${
+          className={`fixed top-0 left-0 z-50 w-full bg-white shadow transition-transform duration-500 ${
             showHeader ? 'translate-y-0' : '-translate-y-full'
           }`}
         >
-          <div className="flex items-center justify-between">
-            {/* Left: Logo */}
-            <div className="flex-shrink-0">
-              <img src="/images/kairo-logo.png" alt="Kairo Logo" className="h-14 w-auto" />
-            </div>
+          {/* Absolute logo floating between white & green */}
+          <div className="absolute top-[40px] left-6 z-20">
+            <img
+              src="/images/kairo-logo.png"
+              alt="Kairo Logo"
+              className="h-20 w-auto drop-shadow-xl"
+            />
+          </div>
 
-            {/* Center: Desktop Navigation */}
-            <nav className="hidden md:flex gap-10 font-display">
+          {/* Top white space */}
+          <div className="hidden md:block h-[80px] bg-white w-full">
+            {/* Mobile hamburger */}
+            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-gray-800">
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              </svg>
+            </button>
+          </div>
+
+          {/* Navigation Row (green) */}
+          <div className="flex items-center justify-between px-6 py-4 bg-lime-400">
+            {/* Nav links center aligned (desktop) */}
+            <nav className="hidden md:flex mx-auto gap-20 font-marker text-lg md:text-3xl font-bold text-black">
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'Ingredients', href: '#ingredients' },
                 { label: 'Shop', href: '#shop' },
                 { label: 'Our Mission', href: '#ourmission' },
               ].map((item) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  className="text-lg font-semibold text-gray-700 hover:text-black transition"
-                >
+                <a key={item.label} href={item.href} className="hover:text-white transition">
                   {item.label}
                 </a>
               ))}
             </nav>
 
-            {/* Login & Register Buttons */}
-            <div className="hidden md:flex gap-3">
-              <a
-                href="/login"
-                className="text-gray-700 font-semibold hover:text-black transition px-4 py-2"
-              >
-                Login
-              </a>
-              <a
-                href="/register"
-                className="bg-green-500 hover:bg-green-600 text-white font-bold px-5 py-2 rounded-full transition duration-300"
-              >
-                Register
-              </a>
-            </div>
-
-            {/* Hamburger: Mobile */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="text-gray-800 focus:outline-none"
-              >
-                <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              </button>
+            {/* Social icons */}
+            <div className="hidden md:flex gap-4">
+              {[
+                { href: 'https://facebook.com', icon: '/icons/facebook.svg' },
+                { href: 'https://twitter.com', icon: '/icons/twitter.svg' },
+                { href: 'https://tiktok.com', icon: '/icons/tiktok.svg' },
+              ].map(({ href, icon }, idx) => (
+                <a
+                  key={idx}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:scale-110 transition"
+                >
+                  <img src={icon} className="w-4 h-4" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile menu dropdown */}
           {mobileMenuOpen && (
-            <div className="md:hidden mt-3 bg-white rounded-xl shadow-lg py-4 px-6">
-              <nav className="flex flex-col items-start gap-4">
+            <div className="md:hidden bg-lime-400 px-6 py-4 space-y-4">
+              <nav className="flex flex-col gap-3 font-marker text-xl font-bold text-black">
                 {[
                   { label: 'Home', href: '#home' },
                   { label: 'Ingredients', href: '#ingredients' },
@@ -131,29 +133,29 @@ export default function KairoWebsite() {
                     key={item.label}
                     href={item.href}
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-base font-semibold text-gray-800 hover:text-pink-600 transition"
+                    className="hover:text-white transition"
                   >
                     {item.label}
                   </a>
                 ))}
-
-                <div className="mt-4 flex gap-4">
-                  <a
-                    href="/login"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-gray-700 font-semibold hover:text-black transition"
-                  >
-                    Login
-                  </a>
-                  <a
-                    href="/register"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="bg-green-500 hover:bg-green-600 text-white font-bold px-5 py-2 rounded-full transition duration-300"
-                  >
-                    Register
-                  </a>
-                </div>
               </nav>
+              <div className="flex justify-center gap-4 pt-2">
+                {[
+                  { href: 'https://facebook.com', icon: '/icons/facebook.svg' },
+                  { href: 'https://twitter.com', icon: '/icons/twitter.svg' },
+                  { href: 'https://tiktok.com', icon: '/icons/tiktok.svg' },
+                ].map(({ href, icon }, idx) => (
+                  <a
+                    key={idx}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:scale-110 transition"
+                  >
+                    <img src={icon} className="w-4 h-4" />
+                  </a>
+                ))}
+              </div>
             </div>
           )}
         </header>
@@ -182,7 +184,20 @@ export default function KairoWebsite() {
           </div>
         </section>
 
-        <section className="bg-gray-100 py-16 text-center px-6">
+        <section className="bg-white py-16 text-center px-6">
+          <div className="relative z-0">
+            {/* Big top-left gummy */}
+            <img
+              src="/images/mango.png"
+              className="absolute top-[10%] left-[5%] w-20 md:w-28 rotate-[10deg] opacity-90 animate-float-slow"
+            />
+            {/* Small top-right gummy */}
+            <img
+              src="/images/floating-gummies-a.png"
+              className="absolute top-[0%] right-[5%] w-12 md:w-32 rotate-[340deg] opacity-80 animate-float-medium"
+            />
+          </div>
+
           <div className="flex justify-center mb-12 z-10 relative">
             <img
               src="/images/headline.png"
@@ -212,18 +227,6 @@ export default function KairoWebsite() {
 
           {/* Floating Gummies*/}
           <div className="relative z-0">
-            {/* Big top-left gummy */}
-            <img
-              src="/images/mango.png"
-              className="absolute top-[0%] left-[5%] w-20 md:w-28 rotate-[10deg] opacity-90 animate-float-slow"
-            />
-
-            {/* Small top-right gummy */}
-            <img
-              src="/images/floating-gummies-b.png"
-              className="absolute top-[8%] right-[10%] w-12 md:w-32 rotate-[340deg] opacity-80 animate-float-medium"
-            />
-
             {/* Medium bottom-left gummy */}
             <img
               src="/images/floating-gummies-c.png"
@@ -279,19 +282,28 @@ export default function KairoWebsite() {
         </section>
 
         {/* Section 3: Introduction */}
-        <section className="py-16 px-6 text-center font-display bg-gray-100 text-gray-800">
-          <div className="flex justify-center mb-12 z-10 relative">
-            <img
-              src="/images/introduction_headline.png"
-              alt="The Power of Nature in Every Bite"
-              className="w-[70%] max-w-[360px]"
-            />
-          </div>
+        <section
+          className="relative bg-cover bg-center py-16 px-6 text-center font-display"
+          style={{ backgroundImage: "url('/images/background.png')" }}
+        >
+          {/* Overlay for text visibility */}
+          <div className="absolute inset-0 bg-black/30 z-0" />
 
-          <p className="max-w-2xl mx-auto">
-            Irish Sea Moss (1600mg), Bladderwrack (1000mg), and Burdock Root (240mg) work together
-            for energy, focus, and wellness. Enjoy our signature mango flavor from organic extracts.
-          </p>
+          <div className="relative z-10 text-white">
+            <div className="flex justify-center mb-12">
+              <img
+                src="/images/introduction_headline.png"
+                alt="The Power of Nature in Every Bite"
+                className="w-[70%] max-w-[360px]"
+              />
+            </div>
+
+            <p className="max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
+              Irish Sea Moss (1600mg), Bladderwrack (1000mg), and Burdock Root (240mg) work together
+              for energy, focus, and wellness. Enjoy our signature mango flavor from organic
+              extracts.
+            </p>
+          </div>
         </section>
 
         {/* Section 5: Product Benefits */}
@@ -368,7 +380,13 @@ export default function KairoWebsite() {
           </div>
         </section>
         {/* Section 6: Shop */}
-        <section id="shop" className="py-20 bg-gray-100 px-6">
+        <section
+          id="shop"
+          className="relative bg-cover bg-center py-16 px-6 text-center font-display"
+          style={{ backgroundImage: "url('/images/background.png')" }}
+        >
+          {/* Overlay for text visibility */}
+          <div className="absolute inset-0 bg-black/30 z-0" />
           {/* Animated Heading */}
           <div className="flex justify-center mb-12 z-10 relative">
             <img
@@ -391,7 +409,7 @@ export default function KairoWebsite() {
           </div>
 
           <motion.p
-            className="text-center text-lg font-medium text-black mb-10"
+            className="text-center text-2xl font-medium text-green-400 mb-10"
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -401,7 +419,7 @@ export default function KairoWebsite() {
           </motion.p>
 
           {/* Product Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
               {
                 title: 'One-Time Purchase',
@@ -431,7 +449,7 @@ export default function KairoWebsite() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: i * 0.2 }}
-                className="bg-white rounded-2xl p-6 shadow-md text-center hover:shadow-xl hover:scale-105 transition-all duration-300"
+                className="bg-white/90 backdrop-blur-md border border-white/30 rounded-2xl p-6 shadow-2xl text-center hover:shadow-[0_8px_30px_rgba(255,255,255,0.3)] hover:scale-105 transition-all duration-300"
               >
                 <h4 className="font-bold text-xl text-black">{opt.title}</h4>
                 <p className="text-gray-700">{opt.details}</p>
@@ -641,21 +659,17 @@ export default function KairoWebsite() {
           </motion.div>
         </section>
 
-        {/* Section 8: Footer */}
-        <footer className="relative bg-gradient-to-t from-gray-900 to-black text-white py-16 px-6 overflow-hidden">
-          {/* Clear Floating Gummies */}
-          {/* <img
-            src="/images/floating-gummies.png"
-            alt="Floating Gummies Background"
-            className="absolute inset-0 w-full h-full object-cover opacity-25"
-            style={{ filter: 'brightness(1.3) saturate(1.5) contrast(1.2)' }}
-          /> */}
+        <footer
+          className="relative bg-cover bg-center py-16 px-6 font-display text-white"
+          style={{ backgroundImage: "url('/images/background.png')" }}
+        >
+          {/* Overlay for text visibility */}
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm z-0" />
 
-          {/* Content Overlay */}
-          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+          <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 text-left">
             {/* Navigation */}
             <div>
-              <h5 className="text-lg font-semibold mb-3 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+              <h5 className="text-xl font-semibold mb-4 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
                 Navigation
               </h5>
               <ul className="space-y-2">
@@ -668,7 +682,7 @@ export default function KairoWebsite() {
                   <li key={item.name}>
                     <a
                       href={item.href}
-                      className="text-sm hover:text-pink-400 transition duration-300"
+                      className="text-sm text-white/80 hover:text-white transition duration-300"
                     >
                       {item.name}
                     </a>
@@ -679,14 +693,14 @@ export default function KairoWebsite() {
 
             {/* Social */}
             <div>
-              <h5 className="text-lg font-semibold mb-3 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+              <h5 className="text-xl font-semibold mb-4 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
                 Social
               </h5>
               <a
                 href="https://www.tiktok.com/shop"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-sm hover:text-pink-400 transition duration-300 block"
+                className="text-sm text-white/80 hover:text-white transition duration-300 block"
               >
                 Visit our TikTok Shop
               </a>
@@ -694,16 +708,16 @@ export default function KairoWebsite() {
 
             {/* Legal */}
             <div>
-              <h5 className="text-lg font-semibold mb-3 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
+              <h5 className="text-xl font-semibold mb-4 bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 bg-clip-text text-transparent">
                 Legal
               </h5>
-              <p className="text-sm mb-2">
+              <p className="text-sm text-white/60 mb-2">
                 © 2025 Kairo&apos;s Vegan Sweet Ltd. All rights reserved.
               </p>
-              <a href="#" className="text-sm hover:text-pink-400 transition block">
+              <a href="#" className="text-sm text-white/80 hover:text-white transition block">
                 Privacy Policy
               </a>
-              <a href="#" className="text-sm hover:text-pink-400 transition block">
+              <a href="#" className="text-sm text-white/80 hover:text-white transition block">
                 Terms of Service
               </a>
             </div>
