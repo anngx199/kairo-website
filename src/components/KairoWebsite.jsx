@@ -55,7 +55,9 @@ export default function KairoWebsite() {
     <>
       <div className="font-display text-gray-900 bg-white min-h-screen">
         <header
-          className={`fixed top-0 left-0 z-50 w-full bg-white shadow transition-transform duration-500`}
+          className={`fixed top-0 left-0 z-50 w-full bg-white shadow transition-transform duration-500 ${
+            showHeader ? 'translate-y-0' : '-translate-y-full'
+          }`}
         >
           <div className="absolute top-[30px] left-6 z-20">
             <img
@@ -64,8 +66,8 @@ export default function KairoWebsite() {
               className="h-20 w-auto drop-shadow-xl"
             />
           </div>
-          {/* Top white strip - desktop only */}
-          <div className="hidden md:block h-[70px] bg-white w-full"></div>
+          {/* Top white spacer (always visible) */}
+          <div className="h-[70px] w-full bg-white" />
 
           {/* Top Green Bar */}
           <div className="flex items-center justify-between px-4 py-4 bg-lime-400 md:justify-center relative">

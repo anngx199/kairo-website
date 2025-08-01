@@ -24,6 +24,7 @@ export default {
         body: ['"Quicksand"', 'sans-serif'],
         display: ['"Baloo 2"', 'cursive'],
         modern: ['"Poppins"', 'sans-serif'],
+        baskerville: ['"Baskerville"', 'cursive'],
       },
     },
   },
