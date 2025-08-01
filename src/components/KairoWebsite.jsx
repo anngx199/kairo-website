@@ -55,24 +55,26 @@ export default function KairoWebsite() {
     <>
       <div className="font-display text-gray-900 bg-white min-h-screen">
         <header
-          className={`fixed top-0 left-0 z-50 w-full bg-white shadow transition-transform duration-500 ${
-            showHeader ? 'translate-y-0' : '-translate-y-full'
-          }`}
+          className={`fixed top-0 left-0 z-50 w-full bg-white shadow transition-transform duration-500`}
         >
-          {/* Absolute logo floating between white & green */}
-          <div className="absolute top-[40px] left-6 z-20">
+          <div className="absolute top-[30px] left-6 z-20">
             <img
               src="/images/kairo-logo.png"
               alt="Kairo Logo"
               className="h-20 w-auto drop-shadow-xl"
             />
           </div>
+          {/* Top white strip - desktop only */}
+          <div className="hidden md:block h-[70px] bg-white w-full"></div>
 
-          {/* Top white space */}
-          <div className="hidden md:block h-[80px] bg-white w-full">
-            {/* Mobile hamburger */}
-            <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-gray-800">
-              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          {/* Top Green Bar */}
+          <div className="flex items-center justify-between px-4 py-4 bg-lime-400 md:justify-center relative">
+            {/* Hamburger (Mobile Only) */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="block md:hidden text-black z-30"
+            >
+              <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -81,12 +83,9 @@ export default function KairoWebsite() {
                 />
               </svg>
             </button>
-          </div>
 
-          {/* Navigation Row (green) */}
-          <div className="flex items-center justify-between px-6 py-4 bg-lime-400">
-            {/* Nav links center aligned (desktop) */}
-            <nav className="hidden md:flex mx-auto gap-20 font-marker text-lg md:text-3xl font-bold text-black">
+            {/* Nav Centered (Desktop Only) */}
+            <nav className="hidden md:flex gap-20 font-marker text-2xl font-bold text-black">
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'Ingredients', href: '#ingredients' },
@@ -99,8 +98,8 @@ export default function KairoWebsite() {
               ))}
             </nav>
 
-            {/* Social icons */}
-            <div className="hidden md:flex gap-4">
+            {/* Social icons (Desktop Only) */}
+            <div className="hidden md:flex gap-4 absolute right-6">
               {[
                 { href: 'https://facebook.com', icon: '/icons/facebook.svg' },
                 { href: 'https://twitter.com', icon: '/icons/twitter.svg' },
@@ -119,10 +118,34 @@ export default function KairoWebsite() {
             </div>
           </div>
 
-          {/* Mobile menu dropdown */}
-          {mobileMenuOpen && (
-            <div className="md:hidden bg-lime-400 px-6 py-4 space-y-4">
-              <nav className="flex flex-col gap-3 font-marker text-xl font-bold text-black">
+          {/* Mobile Drawer */}
+          <div
+            className={`fixed inset-0 z-40 bg-black bg-opacity-40 transition-opacity duration-300 ${
+              mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+            }`}
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            {/* Slide-in Menu */}
+            <div
+              className={`fixed top-0 left-0 h-full w-[75%] max-w-sm bg-white shadow-xl p-6 transition-transform duration-300 ${
+                mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+              }`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button className="text-black mb-6" onClick={() => setMobileMenuOpen(false)}>
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+
+              {/* Nav Items */}
+              <nav className="flex flex-col gap-4 font-marker text-lg font-bold text-black">
                 {[
                   { label: 'Home', href: '#home' },
                   { label: 'Ingredients', href: '#ingredients' },
@@ -132,14 +155,16 @@ export default function KairoWebsite() {
                   <a
                     key={item.label}
                     href={item.href}
+                    className="hover:text-lime-600 transition"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="hover:text-white transition"
                   >
                     {item.label}
                   </a>
                 ))}
               </nav>
-              <div className="flex justify-center gap-4 pt-2">
+
+              {/* Social Icons */}
+              <div className="flex justify-start gap-4 pt-6">
                 {[
                   { href: 'https://facebook.com', icon: '/icons/facebook.svg' },
                   { href: 'https://twitter.com', icon: '/icons/twitter.svg' },
@@ -150,14 +175,14 @@ export default function KairoWebsite() {
                     href={href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-8 h-8 bg-white rounded-full flex items-center justify-center hover:scale-110 transition"
+                    className="w-8 h-8 bg-lime-400 rounded-full flex items-center justify-center hover:scale-110 transition"
                   >
                     <img src={icon} className="w-4 h-4" />
                   </a>
                 ))}
               </div>
             </div>
-          )}
+          </div>
         </header>
 
         <section
