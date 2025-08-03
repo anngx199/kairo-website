@@ -59,8 +59,8 @@ export default function KairoWebsite() {
             showHeader ? 'translate-y-0' : '-translate-y-full'
           }`}
         >
-          {/* Logo absolute */}
-          <div className="absolute top-[1px] left-6 z-20">
+          {/* Logo – căn giữa (mobile) hoặc trái (desktop) */}
+          <div className="absolute top-[2px] left-1/2 transform -translate-x-1/2 z-20 md:left-6 md:transform-none">
             <img
               src="/images/kairo-logo.png"
               alt="Kairo Logo"
@@ -68,9 +68,9 @@ export default function KairoWebsite() {
             />
           </div>
 
-          {/* Top Green Bar — có icon social */}
-          <div className="flex items-center justify-between px-4 py-1 bg-lime-400 relative">
-            {/* Hamburger (Mobile Only) */}
+          {/* Top Green Bar – có icon social */}
+          <div className="flex items-center justify-between px-4 py-2 bg-lime-400 relative">
+            {/* Hamburger menu (mobile only) */}
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="block md:hidden text-black z-30"
@@ -85,8 +85,8 @@ export default function KairoWebsite() {
               </svg>
             </button>
 
-            {/* Social icons (hiện luôn, bên phải dòng xanh) */}
-            <div className="flex gap-4 ml-auto">
+            {/* Social icons */}
+            <div className="flex gap-3 ml-auto z-30">
               {[
                 { href: 'https://facebook.com', icon: '/icons/facebook.svg' },
                 { href: 'https://instagram.com', icon: '/icons/instagram.svg' },
@@ -128,14 +128,14 @@ export default function KairoWebsite() {
             }`}
             onClick={() => setMobileMenuOpen(false)}
           >
-            {/* Slide-in Menu */}
+            {/* Slide-in menu */}
             <div
               className={`fixed top-0 left-0 h-full w-[75%] max-w-sm bg-white shadow-xl p-6 transition-transform duration-300 ${
                 mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
               }`}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close Button */}
+              {/* Close button */}
               <button className="text-black mb-6" onClick={() => setMobileMenuOpen(false)}>
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
@@ -147,7 +147,7 @@ export default function KairoWebsite() {
                 </svg>
               </button>
 
-              {/* Nav Items */}
+              {/* Nav items */}
               <nav className="flex flex-col gap-4 font-marker text-lg font-bold text-black">
                 {[
                   { label: 'Home', href: '#home' },
@@ -166,7 +166,7 @@ export default function KairoWebsite() {
                 ))}
               </nav>
 
-              {/* Social Icons */}
+              {/* Social icons */}
               <div className="flex justify-start gap-4 pt-6">
                 {[
                   { href: 'https://facebook.com', icon: '/icons/facebook.svg' },
@@ -217,12 +217,12 @@ export default function KairoWebsite() {
             {/* Big top-left gummy */}
             <img
               src="/images/mango.png"
-              className="absolute top-[10%] left-[5%] w-20 md:w-24 rotate-[10deg] opacity-90 animate-float-slow"
+              className="absolute top-[10%] left-[5%] w-20 md:w-32 rotate-[10deg] opacity-90 animate-float-slow"
             />
             {/* Small top-right gummy */}
             <img
               src="/images/floating-gummies-a.png"
-              className="absolute top-[0%] right-[5%] w-12 md:w-36 rotate-[340deg] opacity-80 animate-float-medium"
+              className="absolute top-[0%] right-[5%] w-12 md:w-40 rotate-[340deg] opacity-80 animate-float-medium"
             />
           </div>
 
@@ -258,13 +258,13 @@ export default function KairoWebsite() {
             {/* Medium bottom-left gummy */}
             <img
               src="/images/floating-gummies-c.png"
-              className="absolute bottom-[10%] left-[6%] w-14 md:w-36 rotate-[20deg] opacity-85 animate-float-fast"
+              className="absolute bottom-[10%] left-[6%] w-14 md:w-40 rotate-[20deg] opacity-85 animate-float-fast"
             />
 
             {/* Large bottom-right gummy */}
             <img
               src="/images/mango_b.png"
-              className="absolute bottom-[0%] right-[5%] w-12 md:w-32 rotate-[5deg] opacity-75 animate-float-medium"
+              className="absolute bottom-[0%] right-[5%] w-12 md:w-36 rotate-[5deg] opacity-75 animate-float-medium"
             />
           </div>
 
@@ -354,11 +354,11 @@ export default function KairoWebsite() {
             {/* 4 big gummies with random positions */}
             <img
               src="/images/floating-gummies-a.png"
-              className="absolute top-[5%] left-[10%] w-12 md:w-24 rotate-[10deg] opacity-90 animate-float-slow"
+              className="absolute top-[5%] left-[10%] w-12 md:w-20 rotate-[10deg] opacity-90 animate-float-slow"
             />
             <img
               src="/images/floating-gummies-b.png"
-              className="absolute top-[30%] right-[5%] w-12 md:w-32 rotate-[350deg] opacity-85 animate-float-medium"
+              className="absolute top-[30%] right-[5%] w-12 md:w-40 rotate-[350deg] opacity-85 animate-float-medium"
             />
           </div>
 
@@ -399,11 +399,11 @@ export default function KairoWebsite() {
           <div className="relative z-0">
             <img
               src="/images/mango.png"
-              className="absolute bottom-[1%] left-[2%] w-12 md:w-28 rotate-[25deg] opacity-80 animate-float-fast"
+              className="absolute bottom-[1%] left-[2%] w-12 md:w-40 rotate-[25deg] opacity-80 animate-float-fast"
             />
             <img
               src="/images/floating-gummies-d.png"
-              className="absolute bottom-[1%] right-[1%] w-12 md:w-32 rotate-[5deg] opacity-75 animate-float-medium"
+              className="absolute bottom-[1%] right-[1%] w-12 md:w-28 rotate-[5deg] opacity-75 animate-float-medium"
             />
           </div>
         </section>
@@ -691,9 +691,6 @@ export default function KairoWebsite() {
           className="relative bg-cover bg-center py-16 px-6 font-classic text-white"
           style={{ backgroundImage: "url('/images/background.png')" }}
         >
-          {/* Overlay for text visibility */}
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm z-0" />
-
           <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 text-left">
             {/* Navigation */}
             <div>
