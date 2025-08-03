@@ -123,7 +123,7 @@ export default function KairoWebsite() {
 
           {/* Mobile Drawer */}
           <div
-            className={`fixed inset-0 z-40 transition-opacity duration-300 ${
+            className={`fixed inset-0 z-40 bg-whitetransition-opacity duration-300 ${
               mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
             }`}
             style={{
