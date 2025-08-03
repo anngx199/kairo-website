@@ -106,7 +106,7 @@ export default function KairoWebsite() {
           </div>
 
           {/* White Nav Row */}
-          <div className="flex items-center justify-center px-4 py-4 bg-white md:py-2">
+          <div className="flex items-center justify-center px-4 py-5 bg-white md:py-2">
             <nav className="hidden md:flex gap-20 font-classic text-xl font-bold text-lime-400">
               {[
                 { label: 'Home', href: '#home' },
