@@ -122,72 +122,70 @@ export default function KairoWebsite() {
           </div>
 
           {/* Mobile Drawer */}
-          <div
-            className={`fixed inset-0 z-40 bg-whitetransition-opacity duration-300 ${
-              mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-            }`}
-            style={{
-              backgroundColor: mobileMenuOpen ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0)',
-            }}
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <div
-              className={`fixed top-0 left-0 h-full w-[75%] max-w-sm bg-white shadow-xl p-6 transition-transform duration-300 ${
-                mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
-              }`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close Button */}
-              <button className="text-black mb-6" onClick={() => setMobileMenuOpen(false)}>
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              </button>
+          {mobileMenuOpen && (
+            <>
+              <div
+                className="fixed inset-0 z-40 bg-white"
+                onClick={() => setMobileMenuOpen(false)}
+              />
+              <div
+                className={`fixed top-0 left-0 h-full w-[75%] max-w-sm bg-white shadow-xl p-6 transition-transform duration-300 ${
+                  mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
+                }`}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button className="text-black mb-6" onClick={() => setMobileMenuOpen(false)}>
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M6 18L18 6M6 6l12 12"
+                    />
+                  </svg>
+                </button>
 
-              {/* Nav items */}
-              <nav className="flex flex-col gap-4 font-marker text-lg font-bold text-black">
-                {[
-                  { label: 'Home', href: '#home' },
-                  { label: 'Ingredients', href: '#ingredients' },
-                  { label: 'Shop', href: '#shop' },
-                  { label: 'Our Mission', href: '#ourmission' },
-                ].map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    className="hover:text-lime-600 transition"
-                    onClick={() => setMobileMenuOpen(false)}
-                  >
-                    {item.label}
-                  </a>
-                ))}
-              </nav>
+                {/* Nav items */}
+                <nav className="flex flex-col gap-4 font-marker text-lg font-bold text-black">
+                  {[
+                    { label: 'Home', href: '#home' },
+                    { label: 'Ingredients', href: '#ingredients' },
+                    { label: 'Shop', href: '#shop' },
+                    { label: 'Our Mission', href: '#ourmission' },
+                  ].map((item) => (
+                    <a
+                      key={item.label}
+                      href={item.href}
+                      className="hover:text-lime-600 transition"
+                      onClick={() => setMobileMenuOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  ))}
+                </nav>
 
-              {/* Social icons */}
-              <div className="flex justify-start gap-4 pt-6">
-                {[
-                  { href: 'https://facebook.com', icon: '/icons/facebook.svg' },
-                  { href: 'https://instagram.com', icon: '/icons/instagram.svg' },
-                  { href: 'https://tiktok.com', icon: '/icons/tiktok.svg' },
-                ].map(({ href, icon }, idx) => (
-                  <a
-                    key={idx}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-8 h-8 bg-lime-400 rounded-full flex items-center justify-center hover:scale-110 transition"
-                  >
-                    <img src={icon} className="w-4 h-4" />
-                  </a>
-                ))}
+                {/* Social icons */}
+                <div className="flex justify-start gap-4 pt-6">
+                  {[
+                    { href: 'https://facebook.com', icon: '/icons/facebook.svg' },
+                    { href: 'https://instagram.com', icon: '/icons/instagram.svg' },
+                    { href: 'https://tiktok.com', icon: '/icons/tiktok.svg' },
+                  ].map(({ href, icon }, idx) => (
+                    <a
+                      key={idx}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-8 h-8 bg-lime-400 rounded-full flex items-center justify-center hover:scale-110 transition"
+                    >
+                      <img src={icon} className="w-4 h-4" />
+                    </a>
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
+            </>
+          )}
         </header>
 
         <section
