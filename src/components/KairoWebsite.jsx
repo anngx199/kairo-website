@@ -131,14 +131,13 @@ export default function KairoWebsite() {
             }}
             onClick={() => setMobileMenuOpen(false)}
           >
-            {/* Slide-in menu */}
             <div
               className={`fixed top-0 left-0 h-full w-[75%] max-w-sm bg-white shadow-xl p-6 transition-transform duration-300 ${
                 mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'
               }`}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Close button */}
+              {/* Close Button */}
               <button className="text-black mb-6" onClick={() => setMobileMenuOpen(false)}>
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
