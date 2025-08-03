@@ -17,6 +17,7 @@ export default {
       backgroundImage: {
         rainbow: 'linear-gradient(90deg, #ff0000, #ff9900, #33cc33, #3399ff, #9900cc)',
       },
+
       fontFamily: {
         comic: ['"Luckiest Guy"', 'cursive'],
         marker: ['"Permanent Marker"', 'cursive'],
@@ -24,7 +25,22 @@ export default {
         body: ['"Quicksand"', 'sans-serif'],
         display: ['"Baloo 2"', 'cursive'],
         modern: ['"Poppins"', 'sans-serif'],
-        baskerville: ['"Baskerville"', 'cursive'],
+
+        // Classic serif fonts
+        classic: ['"Playfair Display"', 'serif'],
+        elegant: ['"Libre Baskerville"', 'serif'],
+        garamond: ['"Cormorant Garamond"', 'serif'],
+        book: ['"Merriweather"', 'serif'],
+
+        // Retro classic sans-serif
+        retro: ['"Josefin Sans"', 'sans-serif'],
+        futura: ['"Futura"', 'sans-serif'], // Use fallback; not on Google Fonts
+        gill: ['"Gill Sans"', 'sans-serif'], // Local fallback too
+
+        // Calligraphy / script
+        vibes: ['"Great Vibes"', 'cursive'],
+        tangerine: ['"Tangerine"', 'cursive'],
+        dance: ['"Dancing Script"', 'cursive'],
       },
     },
   },
