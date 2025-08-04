@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { motion } from 'framer-motion'
-import CheckoutButton from './CheckoutButton'
+//import CheckoutButton from './CheckoutButton'
+//import CheckoutScreen from './CheckoutScreen'
 
 const Button = ({ children, className = '', ...props }) => (
   <button
@@ -18,11 +19,40 @@ Button.propTypes = {
 }
 
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function KairoWebsite() {
   const [showHeader, setShowHeader] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const navigate = useNavigate() // dùng để chuyển hướng đến CheckoutScreen
+
+  const products = [
+    {
+      title: 'One-Time Purchase',
+      details: '1 Pack (15 Gummies)',
+      price: '£12.00',
+      shipping: '£3.70',
+      label: 'Add to Cart',
+      path: '/checkout', // sau này có thể là /checkout?type=one-time
+    },
+    {
+      title: '4-Pack Bundle',
+      details: '4 Packs (60 Gummies)',
+      price: '£40.00',
+      shipping: '£5.15',
+      label: 'Add to Cart',
+      path: '/checkout',
+    },
+    {
+      title: 'Monthly Subscription',
+      details: '4 Packs every month',
+      price: '£40.00/mo',
+      shipping: '£5.15',
+      label: 'Subscribe & Save',
+      path: '/checkout',
+    },
+  ]
 
   const [isMobile, setIsMobile] = useState(false)
 
@@ -413,9 +443,10 @@ export default function KairoWebsite() {
           className="relative bg-cover bg-center py-16 px-6 text-center font-classic"
           style={{ backgroundImage: "url('/images/background.png')" }}
         >
-          {/* Overlay for text visibility */}
+          {/* Overlay */}
           <div className="absolute inset-0 bg-black/30 z-0" />
-          {/* Animated Heading */}
+
+          {/* Headline */}
           <div className="flex justify-center mb-12 z-10 relative">
             <img
               src="/images/shop_headline.png"
@@ -424,8 +455,8 @@ export default function KairoWebsite() {
             />
           </div>
 
+          {/* Floating gummies (top) */}
           <div className="relative z-0">
-            {/* 4 big gummies with random positions */}
             <img
               src="/images/mango.png"
               className="absolute top-[5%] left-[2%] w-12 md:w-28 rotate-[10deg] opacity-90 animate-float-slow"
@@ -436,6 +467,7 @@ export default function KairoWebsite() {
             />
           </div>
 
+          {/* Subtext */}
           <motion.p
             className="text-center text-2xl font-medium text-white mb-10"
             initial={{ opacity: 0, y: 10 }}
@@ -448,29 +480,7 @@ export default function KairoWebsite() {
 
           {/* Product Cards */}
           <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                title: 'One-Time Purchase',
-                details: '1 Pack (15 Gummies)',
-                price: '£12.00',
-                shipping: '£3.70',
-                label: 'Add to Cart',
-              },
-              {
-                title: '4-Pack Bundle',
-                details: '4 Packs (60 Gummies)',
-                price: '£40.00',
-                shipping: '£5.15',
-                label: 'Add to Cart',
-              },
-              {
-                title: 'Monthly Subscription',
-                details: '4 Packs every month',
-                price: '£40.00/mo',
-                shipping: '£5.15',
-                label: 'Subscribe & Save',
-              },
-            ].map((opt, i) => (
+            {products.map((opt, i) => (
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 30 }}
@@ -481,15 +491,33 @@ export default function KairoWebsite() {
               >
                 <h4 className="font-bold text-xl text-black">{opt.title}</h4>
                 <p className="text-gray-700">{opt.details}</p>
-                <p className="text-2xl font-extrabold mt-30">{opt.price}</p>
+                <p className="text-2xl font-extrabold mt-2">{opt.price}</p>
                 <p className="text-sm text-gray-500 mb-4">+ Shipping: {opt.shipping}</p>
-                <CheckoutButton priceId="your_price_id_here" className="mt-10 w-full">
+                <button
+                  onClick={() =>
+                    navigate('/checkout', {
+                      state: {
+                        title: opt.title,
+                        details: opt.details,
+                        price: opt.price,
+                        img:
+                          opt.title === 'One-Time Purchase'
+                            ? '/images/gummies-layout-c.jpg'
+                            : opt.title === '4-Pack Bundle'
+                              ? '/images/hero.jpg'
+                              : '/images/gummies-layout-a.jpg',
+                      },
+                    })
+                  }
+                  className="bg-lime-500 text-white font-bold py-2 px-4 rounded w-full mt-6 hover:bg-lime-600 transition"
+                >
                   {opt.label}
-                </CheckoutButton>
+                </button>
               </motion.div>
             ))}
           </div>
 
+          {/* Floating gummies (bottom) */}
           <div className="relative z-0">
             <img
               src="/images/floating-gummies-c.png"
