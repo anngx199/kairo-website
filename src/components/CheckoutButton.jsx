@@ -22,7 +22,7 @@ export default function CheckoutButton({ priceId, isSubscription = false, qty = 
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           priceId,
-          qty,
+          quantity: qty,
           mode: isSubscription ? 'subscription' : 'payment',
           successUrl: `${window.location.origin}/success`,
           cancelUrl: `${window.location.origin}`,

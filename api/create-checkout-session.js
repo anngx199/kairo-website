@@ -1,32 +1,29 @@
-// api/create-checkout-session.js  -- Vercel Node Serverless (CommonJS)
-const Stripe = require('stripe')
+// api/create-checkout-session.js  (ESM, Vercel Node function)
+import Stripe from 'stripe'
 
 const SECRET = process.env.STRIPE_SECRET_KEY
+const stripe = SECRET ? new Stripe(SECRET) : null
 
 function readBody(req) {
   return new Promise((resolve, reject) => {
     let data = ''
-    req.on('data', (chunk) => (data += chunk))
+    req.on('data', (c) => (data += c))
     req.on('end', () => resolve(data))
     req.on('error', reject)
   })
 }
 
-module.exports = async (req, res) => {
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' })
+export default async function handler(req, res) {
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method Not Allowed' })
+  }
   try {
     if (!SECRET) throw new Error('Server misconfigured: STRIPE_SECRET_KEY is missing')
 
-    // Parse JSON body (Vercel Node functions don't auto-parse)
-    let payload = {}
+    // Vercel Node functions không tự parse JSON
     const raw = await readBody(req)
-    if (raw) {
-      try {
-        payload = JSON.parse(raw)
-      } catch {
-        throw new Error('Invalid JSON body')
-      }
-    }
+    let payload = {}
+    if (raw) payload = JSON.parse(raw)
 
     const {
       priceId,
@@ -41,7 +38,6 @@ module.exports = async (req, res) => {
       throw new Error("Invalid 'mode'. Use 'payment' or 'subscription'")
     }
 
-    const stripe = new Stripe(SECRET)
     const session = await stripe.checkout.sessions.create({
       mode,
       line_items: [{ price: priceId, quantity }],
@@ -55,3 +51,6 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: e?.message || 'Unknown error' })
   }
 }
+
+// (tuỳ chọn) lock runtime
+export const config = { runtime: 'nodejs20.x' }
