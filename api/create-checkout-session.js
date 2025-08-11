@@ -42,6 +42,3 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: e?.message || 'Unknown error' })
   }
 }
-
-// (tuỳ chọn) chỉ rõ runtime Node – không bắt buộc nhưng tốt:
-export const config = { runtime: 'nodejs20.x' }
