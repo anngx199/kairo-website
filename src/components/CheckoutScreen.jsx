@@ -84,7 +84,7 @@ export default function CheckoutScreen() {
 
           {/* Powered by Stripe (optional) */}
           <div className="flex items-center justify-center mt-4">
-            <img src="/images/stripe-logo.svg" alt="Powered by Stripe" className="h-6" />
+            <img src="/icons/stripe-logo.svg" alt="Powered by Stripe" className="h-6" />
           </div>
         </div>
       </div>
