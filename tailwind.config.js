@@ -29,8 +29,8 @@ export default {
 
         // Retro classic sans-serif
         retro: ['"Josefin Sans"', 'sans-serif'],
-        futura: ['"Futura"', 'sans-serif'], // Use fallback; not on Google Fonts
-        gill: ['"Gill Sans"', 'sans-serif'], // Local fallback too
+        futura: ['"Futura"', 'sans-serif'],
+        gill: ['"Gill Sans"', 'sans-serif'],
 
         // Calligraphy / script
         vibes: ['"Great Vibes"', 'cursive'],
