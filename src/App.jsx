@@ -1,7 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
-import Success from './pages/Success'
-import Cancel from './pages/Cancel'
+import Success from './pages/success.jsx'
+import Cancel from './pages/cancel.jsx'
 import CheckoutScreen from './components/CheckoutScreen'
 import KairoWebsite from './components/KairoWebsite'
 
