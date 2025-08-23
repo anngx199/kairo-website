@@ -1,15 +1,15 @@
 // src/pages/Success.jsx
-import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 export default function Success() {
-  const [sessionId] = useState(new URLSearchParams(location.search).get('session_id'))
-  useEffect(() => {
-    // TODO: gọi API /api/verify-session?session_id=... nếu cần xác minh
-  }, [sessionId])
+  const location = useLocation()
+  const params = new URLSearchParams(location.search)
+  const sessionId = params.get('session_id')
+
   return (
-    <main style={{ padding: 24 }}>
-      <h1>Payment Success</h1>
-      <p>Session: {sessionId}</p>
+    <main style={{ padding: '24px' }}>
+      <h1>Payment Success 🎉</h1>
+      {sessionId ? <p>Session ID: {sessionId}</p> : <p>No session_id found in URL</p>}
     </main>
   )
 }

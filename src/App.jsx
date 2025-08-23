@@ -1,5 +1,7 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
+import Success from './pages/Success'
+import Cancel from './pages/Cancel'
 import CheckoutScreen from './components/CheckoutScreen'
 import KairoWebsite from './components/KairoWebsite'
 
@@ -8,8 +10,8 @@ function App() {
     <Routes>
       <Route path="/" element={<KairoWebsite />} />
       <Route path="/checkout" element={<CheckoutScreen />} />
-      <Route path="/success" element={<div className="p-8">Payment successful</div>} />
-      <Route path="/cancel" element={<div className="p-8">Payment canceled.</div>} />
+      <Route path="/success" element={<Success />} />
+      <Route path="/cancel" element={<Cancel />} />
     </Routes>
   )
 }
