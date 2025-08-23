@@ -3,6 +3,7 @@ import Stripe from 'stripe'
 
 const SECRET = process.env.STRIPE_SECRET_KEY
 const stripe = SECRET ? new Stripe(SECRET) : null
+const BASE_URL = process.env.BASE_URL || 'https://www.kairosvegansweets.com'
 
 function readBody(req) {
   return new Promise((resolve, reject) => {
@@ -41,8 +42,8 @@ export default async function handler(req, res) {
     const session = await stripe.checkout.sessions.create({
       mode,
       line_items: [{ price: priceId, quantity }],
-      success_url: successUrl || `${req.headers.origin}/success`,
-      cancel_url: cancelUrl || `${req.headers.origin}/cancel`,
+      success_url: successUrl || `${BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${BASE_URL}/cancel`,
     })
 
     return res.status(200).json({ url: session.url })
