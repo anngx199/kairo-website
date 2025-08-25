@@ -35,8 +35,8 @@ export default function CheckoutScreen() {
           priceId,
           quantity: 1,
           mode,
-          successUrl: `${window.location.origin}/success`,
-          cancelUrl: `${window.location.origin}/checkout`,
+          // successUrl: `${window.location.origin}/success`,
+          // cancelUrl: `${window.location.origin}/checkout`,
         }),
       })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
