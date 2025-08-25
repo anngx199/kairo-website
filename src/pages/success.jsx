@@ -1,56 +1,70 @@
-import React from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { useLocation, Link } from 'react-router-dom'
 
 export default function Success() {
-  const navigate = useNavigate()
-  const params = new URLSearchParams(useLocation().search)
+  const location = useLocation()
+  const params = new URLSearchParams(location.search)
   const sessionId = params.get('session_id')
+  const [receipt, setReceipt] = useState(null)
+
+  useEffect(() => {
+    if (sessionId) {
+      fetch(`/api/retrieve-session?session_id=${sessionId}`)
+        .then((res) => res.json())
+        .then((data) => setReceipt(data))
+        .catch((err) => console.error(err))
+    }
+  }, [sessionId])
 
   return (
     <div
-      className="min-h-screen bg-cover bg-center flex flex-col items-center px-4 py-10"
+      className="min-h-screen bg-cover bg-center flex flex-col items-center justify-center px-4"
       style={{ backgroundImage: "url('/images/background.png')" }}
     >
-      {/* Headline */}
-      <div className="mb-8 mt-4">
-        <img
-          src="/images/payment_headline.png"
-          alt="Payment Complete"
-          className="max-w-xs md:max-w-sm drop-shadow"
-          onError={(e) => {
-            e.currentTarget.outerHTML =
-              '<h1 style="font-weight:800;font-size:28px;color:white;text-shadow:0 1px 3px rgba(0,0,0,.3)">Payment Success 🎉</h1>'
-          }}
-        />
-      </div>
+      <img src="/images/payment_headline.png" alt="Payment Complete" className="mb-6 w-[320px]" />
 
-      {/* Receipt card */}
-      <div className="w-full max-w-xl bg-white/95 backdrop-blur p-6 rounded-2xl shadow-2xl">
-        <h2 className="text-2xl font-bold text-center mb-4">Receipt</h2>
-        {sessionId ? (
-          <>
-            <p className="text-gray-700 mb-1">
-              <span className="font-medium">Checkout Session ID:</span>{' '}
-              <span className="font-mono break-all">{sessionId}</span>
+      <div className="bg-white/95 rounded-xl p-6 shadow-xl max-w-lg w-full text-center">
+        <h2 className="text-xl font-bold mb-3">Receipt</h2>
+        {!sessionId && <p>No session_id found in URL.</p>}
+        {receipt ? (
+          <div>
+            <p>
+              <strong>Status:</strong> {receipt.payment_status}
             </p>
-            <p className="text-gray-600 mt-3">
-              Save the Session ID to look up in Stripe Dashboard if needed.
+            <p>
+              <strong>Email:</strong> {receipt.customer_details?.email}
             </p>
-          </>
+            <ul className="mt-3">
+              {receipt.line_items?.data?.map((item) => (
+                <li key={item.id} className="mb-2">
+                  <img
+                    src={item.price.product.images?.[0]}
+                    alt={item.description}
+                    className="h-16 mx-auto mb-1"
+                  />
+                  <p>
+                    {item.description} × {item.quantity}
+                  </p>
+                  <p>
+                    <strong>
+                      {(item.amount_total / 100).toFixed(2)} {receipt.currency.toUpperCase()}
+                    </strong>
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </div>
         ) : (
-          <p className="text-gray-600 text-center">
-            No <code>session_id</code> found in URL.
-          </p>
+          <p>Loading receipt...</p>
         )}
       </div>
 
-      {/* Back button */}
-      <button
-        onClick={() => navigate('/')}
-        className="mt-8 bg-lime-500 text-white font-bold px-6 py-3 rounded-full shadow hover:bg-lime-600 transition"
+      <Link
+        to="/"
+        className="mt-6 bg-lime-500 text-white px-6 py-3 rounded-lg font-bold hover:bg-lime-600"
       >
         Back to Home
-      </button>
+      </Link>
     </div>
   )
 }
