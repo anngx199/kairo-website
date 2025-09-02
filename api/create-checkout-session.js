@@ -15,7 +15,6 @@ function readBody(req) {
 }
 
 export default async function handler(req, res) {
-  // (tuỳ chọn) hỗ trợ preflight nếu gọi chéo domain
   if (req.method === 'OPTIONS') {
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
@@ -59,6 +58,33 @@ export default async function handler(req, res) {
     const session = await stripe.checkout.sessions.create({
       mode,
       line_items: [{ price: priceId, quantity }],
+      shipping_address_collection: {
+        allowed_countries: ['US', 'GB', 'NZ'], // các nước bạn ship
+      },
+      shipping_options: [
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: { amount: 500, currency: 'gbp' }, // £5.00
+            display_name: 'Standard Shipping',
+            delivery_estimate: {
+              minimum: { unit: 'business_day', value: 3 },
+              maximum: { unit: 'business_day', value: 5 },
+            },
+          },
+        },
+        {
+          shipping_rate_data: {
+            type: 'fixed_amount',
+            fixed_amount: { amount: 1200, currency: 'gbp' }, // £12.00
+            display_name: 'Express Shipping',
+            delivery_estimate: {
+              minimum: { unit: 'business_day', value: 1 },
+              maximum: { unit: 'business_day', value: 2 },
+            },
+          },
+        },
+      ],
       success_url: successUrl || `${ORIGIN}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: cancelUrl || `${ORIGIN}/cancel`,
     })
