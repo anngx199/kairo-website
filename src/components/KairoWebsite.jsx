@@ -35,7 +35,7 @@ export default function KairoWebsite() {
       label: 'Add to Cart',
       path: '/checkout',
       img: '/images/gummies-layout-c.jpg',
-      priceId: 'price_1RutaX2KR77tcshFsuESJYmX',
+      priceId: 'price_1RusAh2KR77tcshFpYpxPGrv',
     },
     {
       title: '4-Pack Bundle',
@@ -45,7 +45,7 @@ export default function KairoWebsite() {
       label: 'Add to Cart',
       path: '/checkout',
       img: '/images/hero.jpg',
-      priceId: 'price_1RutbK2KR77tcshFAPvMrkxi',
+      priceId: 'price_1RusHh2KR77tcshFjyH7ZOEf',
     },
     {
       title: 'Monthly Subscription',
@@ -55,7 +55,7 @@ export default function KairoWebsite() {
       label: 'Subscribe & Save',
       path: '/checkout',
       img: '/images/gummies-layout-a.jpg',
-      priceId: 'price_1Rutcw2KR77tcshFFCwhR1b5',
+      priceId: 'price_1RusKa2KR77tcshFqcVFpAsz',
       isSubscription: true,
     },
   ]

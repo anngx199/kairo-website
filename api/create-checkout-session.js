@@ -65,7 +65,7 @@ export default async function handler(req, res) {
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: { amount: 500, currency: 'gbp' }, // £5.00
+            fixed_amount: { amount: 370, currency: 'gbp' }, // £3.70
             display_name: 'Standard Shipping',
             delivery_estimate: {
               minimum: { unit: 'business_day', value: 3 },
@@ -76,7 +76,7 @@ export default async function handler(req, res) {
         {
           shipping_rate_data: {
             type: 'fixed_amount',
-            fixed_amount: { amount: 1200, currency: 'gbp' }, // £12.00
+            fixed_amount: { amount: 515, currency: 'gbp' }, // £5.15
             display_name: 'Express Shipping',
             delivery_estimate: {
               minimum: { unit: 'business_day', value: 1 },
