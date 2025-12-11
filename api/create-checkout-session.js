@@ -11,6 +11,13 @@ export default async function handler(req, res) {
     const session = await stripe.checkout.sessions.create({
       mode,
       line_items: [{ price: priceId, quantity }],
+      shipping_address_collection: {
+        allowed_countries: ['NZ', 'GB'],
+      },
+      shipping_options: [
+        { shipping_rate: 'shr_live_standardID' },
+        { shipping_rate: 'shr_live_expressID' },
+      ],
       success_url: `${process.env.VITE_PUBLIC_BASE_URL}/success`,
       cancel_url: `${process.env.VITE_PUBLIC_BASE_URL}/cancel`,
     })
