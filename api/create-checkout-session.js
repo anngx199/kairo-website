@@ -15,8 +15,8 @@ export default async function handler(req, res) {
         allowed_countries: ['NZ', 'GB'],
       },
       shipping_options: [
-        { shipping_rate: 'shr_live_standardID' },
-        { shipping_rate: 'shr_live_expressID' },
+        { shipping_rate: 'shr_1ScvCz2KR77tcshFErvR0AWo' },
+        { shipping_rate: 'shr_1ScvCO2KR77tcshF8PyKmIWK' },
       ],
       success_url: `${process.env.VITE_PUBLIC_BASE_URL}/success`,
       cancel_url: `${process.env.VITE_PUBLIC_BASE_URL}/cancel`,
