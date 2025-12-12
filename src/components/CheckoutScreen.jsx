@@ -1,23 +1,21 @@
 // src/components/CheckoutScreen.jsx
-import React from 'react'
+import React, { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+
+// Auto API endpoint (local vs Vercel)
+const API_ENDPOINT = import.meta.env.PROD
+  ? '/api/create-checkout-session'
+  : `${(import.meta.env.VITE_API_BASE || 'http://localhost:4242').replace(/\/$/, '')}/create-checkout-session`
 
 export default function CheckoutScreen() {
   const location = useLocation()
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
 
-  // Safe fallback (KHÔNG crash)
-  const state = location.state || {}
+  // Safe fallback
+  const state = location.state
 
-  const {
-    title = 'Product',
-    details = '',
-    price = '',
-    img = '/images/gummies-layout-c.jpg',
-  } = state
-
-  // Nếu user vào thẳng /checkout → quay về shop
-  if (!location.state) {
+  if (!state) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
         <h2 className="text-2xl font-bold mb-4">No product selected</h2>
@@ -30,6 +28,55 @@ export default function CheckoutScreen() {
         </button>
       </div>
     )
+  }
+
+  const {
+    title = 'Product',
+    details = '',
+    price = '',
+    img = '/images/gummies-layout-c.jpg',
+    priceId,
+    isSubscription = false,
+  } = state
+
+  const handlePay = async () => {
+    if (!priceId) {
+      alert('Missing price configuration. Please contact support.')
+      return
+    }
+
+    setLoading(true)
+    try {
+      const res = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          priceId,
+          quantity: 1,
+          mode: isSubscription ? 'subscription' : 'payment',
+          successUrl: `${window.location.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancelUrl: `${window.location.origin}/checkout`,
+        }),
+      })
+
+      if (!res.ok) {
+        const text = await res.text()
+        throw new Error(text)
+      }
+
+      const data = await res.json()
+
+      if (data?.url) {
+        window.location.href = data.url
+      } else {
+        throw new Error('No Stripe checkout URL returned.')
+      }
+    } catch (err) {
+      console.error('Checkout error:', err)
+      alert('Unable to start payment. Please try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -55,10 +102,20 @@ export default function CheckoutScreen() {
         </div>
 
         {/* Info */}
-        <div className="text-center text-gray-600">
+        <div className="text-center text-gray-600 mb-6">
           <p>You’ll be redirected to Stripe to complete your payment securely.</p>
           <p className="mt-2 text-sm">If you cancel or refresh, no money will be taken.</p>
         </div>
+
+        {/* Pay button */}
+        <button
+          onClick={handlePay}
+          disabled={loading}
+          className={`w-full bg-lime-500 text-white px-6 py-3 rounded-lg font-bold transition
+            ${loading ? 'opacity-60 cursor-not-allowed' : 'hover:bg-lime-600'}`}
+        >
+          {loading ? 'Redirecting…' : 'Pay with Stripe'}
+        </button>
       </div>
     </div>
   )
