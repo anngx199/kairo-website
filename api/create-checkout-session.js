@@ -1,44 +1,56 @@
-// api/create-checkout-session.js (hoặc .ts)
+// api/create-checkout-session.js (Vercel Node Function - ESM)
 import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
-const PUBLIC_BASE_URL = process.env.VITE_PUBLIC_BASE_URL || 'http://localhost:5173'
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' })
-  }
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' })
 
   try {
     const {
       priceId,
       quantity = 1,
       mode = 'payment',
-      shippingRates = [],
       successUrl,
       cancelUrl,
-    } = req.body
 
-    const sessionConfig = {
+      // optional: bạn có thể truyền từ FE nếu muốn
+      allowedCountries = ['GB', 'NZ'],
+      // freeShipping: true (hiện tại bạn muốn free delivery)
+    } = req.body || {}
+
+    if (!priceId) return res.status(400).json({ error: 'Missing priceId' })
+
+    const session = await stripe.checkout.sessions.create({
       mode,
+
       line_items: [{ price: priceId, quantity }],
-      success_url: successUrl || `${PUBLIC_BASE_URL}/success`,
-      cancel_url: cancelUrl || `${PUBLIC_BASE_URL}/cancel`,
-    }
 
-    if (shippingRates.length > 0) {
-      sessionConfig.shipping_address_collection = {
-        allowed_countries: ['NZ', 'GB'],
-      }
-      sessionConfig.shipping_options = shippingRates.map((id) => ({
-        shipping_rate: id,
-      }))
-    }
+      // ✅ Thu địa chỉ giao hàng (đây là "lấy địa chỉ để ship")
+      shipping_address_collection: {
+        allowed_countries: allowedCountries,
+      },
 
-    const session = await stripe.checkout.sessions.create(sessionConfig)
-    res.status(200).json({ url: session.url })
+      // ✅ (Tuỳ chọn) bắt buộc billing address nếu cần hoá đơn
+      // billing_address_collection: 'required',
+
+      // ✅ Free delivery => KHÔNG set shipping_options
+      // Nếu sau này muốn bật lại shipping rate:
+      // shipping_options: [{ shipping_rate: 'shr_...' }],
+
+      // ✅ URL: nhớ truyền đúng placeholder session_id để trang Success lấy được
+      success_url:
+        successUrl ||
+        `${process.env.VITE_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: cancelUrl || `${process.env.VITE_PUBLIC_BASE_URL}/cancel`,
+
+      // ✅ (khuyến nghị) giúp email rõ ràng hơn trong Stripe + webhook
+      // customer_email: customerEmail, // nếu FE có email sẵn
+    })
+
+    return res.status(200).json({ url: session.url })
   } catch (err) {
-    console.error('Stripe error:', err)
-    res.status(400).json({ error: err.message })
+    console.error('create-checkout-session error:', err)
+    return res.status(400).json({ error: err?.message || 'Unknown error' })
   }
 }
