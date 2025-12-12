@@ -10,42 +10,49 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
+// Health check
 app.get('/', (_, res) => res.send('Stripe server is running ✅'))
 
+// Stripe init (LIVE or TEST depends on env)
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
-// POST /create-checkout-session (LOCAL DEV)
+// Public base URL (Vercel or local)
+const PUBLIC_BASE_URL = process.env.VITE_PUBLIC_BASE_URL || 'http://localhost:5173'
+
+// Create checkout session
 app.post('/create-checkout-session', async (req, res) => {
   try {
-    const {
-      priceId,
-      quantity = 1,
-      mode = 'payment',
-      shippingRates = [],
-      successUrl,
-      cancelUrl,
-    } = req.body
+    const { priceId, quantity = 1, mode = 'payment', successUrl, cancelUrl } = req.body
 
+    // ✅ Guard: missing priceId
     if (!priceId) {
       return res.status(400).json({ error: 'Missing priceId' })
     }
 
     const session = await stripe.checkout.sessions.create({
       mode,
-      line_items: [{ price: priceId, quantity }],
-      shipping_address_collection: {
-        allowed_countries: ['NZ', 'GB'],
-      },
-      shipping_options: shippingRates.map((id) => ({ shipping_rate: id })),
-      success_url: successUrl || 'http://localhost:5173/success',
-      cancel_url: cancelUrl || 'http://localhost:5173/cancel',
+      line_items: [
+        {
+          price: priceId,
+          quantity,
+        },
+      ],
+
+      // ✅ No shipping = free delivery
+      // (do NOT add shipping_options)
+
+      success_url: successUrl || `${PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+
+      cancel_url: cancelUrl || `${PUBLIC_BASE_URL}/cancel`,
     })
 
-    res.json({ url: session.url })
-  } catch (e) {
-    console.error('Stripe error (local):', e)
-    res.status(400).json({ error: e.message })
+    res.status(200).json({ url: session.url })
+  } catch (err) {
+    console.error('❌ Stripe Checkout Error:', err)
+    res.status(400).json({
+      error: err.message || 'Unable to create checkout session',
+    })
   }
 })
 
-app.listen(4242, () => console.log('Server running on http://localhost:4242'))
+app.listen(4242, () => console.log('🚀 Server running on http://localhost:4242'))

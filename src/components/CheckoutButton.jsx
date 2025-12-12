@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
-// -----------------------------
-// AUTO ENDPOINT (Dev vs Production)
-// -----------------------------
+// ----------------------------------
+// API endpoint (local vs production)
+// ----------------------------------
 const API_ENDPOINT = import.meta.env.PROD
-  ? '/api/create-checkout-session' // chạy trên Vercel
+  ? '/api/create-checkout-session'
   : `${(import.meta.env.VITE_API_BASE || 'http://localhost:4242').replace(
       /\/$/,
       ''
@@ -15,29 +15,26 @@ export default function CheckoutButton({
   priceId,
   isSubscription = false,
   qty = 1,
-  shippingRates = [],
   label = 'Pay with Stripe',
 }) {
   const [loading, setLoading] = useState(false)
 
   const handleCheckout = async () => {
     if (!priceId) {
-      alert('❌ Missing priceId. Cannot continue.')
+      alert('❌ Missing priceId')
       return
     }
 
     setLoading(true)
+
     try {
       const payload = {
         priceId,
         quantity: qty,
         mode: isSubscription ? 'subscription' : 'payment',
-        shippingRates,
-        successUrl: `${window.location.origin}/success`,
-        cancelUrl: `${window.location.origin}`,
       }
 
-      console.log('Sending checkout payload:', payload)
+      console.log('🟢 Creating checkout session:', payload)
 
       const res = await fetch(API_ENDPOINT, {
         method: 'POST',
@@ -47,19 +44,20 @@ export default function CheckoutButton({
 
       if (!res.ok) {
         const text = await res.text()
-        throw new Error(`❌ Server error ${res.status}: ${text}`)
+        throw new Error(`Server error ${res.status}: ${text}`)
       }
 
       const data = await res.json()
 
-      if (data?.url) {
-        window.location.href = data.url
-      } else {
-        alert('❌ No checkout session URL returned from the server.')
+      if (!data?.url) {
+        throw new Error('No checkout URL returned')
       }
+
+      // ✅ Stripe redirect (safe)
+      window.location.href = data.url
     } catch (err) {
-      console.error('Checkout error:', err)
-      alert('⚠ Failed to start Stripe checkout. Check console for details.')
+      console.error('❌ Checkout failed:', err)
+      alert('Payment could not be started. No money has been taken. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -69,7 +67,7 @@ export default function CheckoutButton({
     <button
       onClick={handleCheckout}
       disabled={loading}
-      className={`bg-lime-500 text-white px-4 py-3 rounded-lg w-full font-bold transition 
+      className={`bg-lime-500 text-white px-4 py-3 rounded-lg w-full font-bold transition
         ${loading ? 'opacity-60 cursor-not-allowed' : 'hover:bg-lime-600'}`}
     >
       {loading ? 'Redirecting…' : label}
@@ -82,5 +80,4 @@ CheckoutButton.propTypes = {
   isSubscription: PropTypes.bool,
   qty: PropTypes.number,
   label: PropTypes.string,
-  shippingRates: PropTypes.arrayOf(PropTypes.string),
 }

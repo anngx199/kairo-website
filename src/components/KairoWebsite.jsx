@@ -30,32 +30,32 @@ export default function KairoWebsite() {
     {
       title: 'One-Time Purchase',
       details: '1 Pack (15 Gummies)',
-      price: '£12.00',
-      shipping: '£3.70',
-      label: 'Add to Cart',
+      price: '£15.00',
+      delivery: 'Free Delivery',
+      label: 'Buy Now',
       path: '/checkout',
       img: '/images/gummies-layout-c.jpg',
-      priceId: 'price_1RusAh2KR77tcshFpYpxPGrv',
+      priceId: 'price_1SdUJB2KR77tcshFlivr6zBg', // 🔴 tạo price mới trong Stripe
     },
     {
       title: '4-Pack Bundle',
       details: '4 Packs (60 Gummies)',
-      price: '£40.00',
-      shipping: '£5.15',
-      label: 'Add to Cart',
+      price: '£45.00',
+      delivery: 'Free Delivery',
+      label: 'Best Value',
       path: '/checkout',
       img: '/images/hero.jpg',
-      priceId: 'price_1RusHh2KR77tcshFjyH7ZOEf',
+      priceId: 'price_1SdUKs2KR77tcshFwCrHSHfG', // 🔴 price mới
     },
     {
       title: 'Monthly Subscription',
       details: '4 Packs every month',
-      price: '£40.00/mo',
-      shipping: '£5.15',
+      price: '£45.00 / month',
+      delivery: 'Free Delivery',
       label: 'Subscribe & Save',
       path: '/checkout',
       img: '/images/gummies-layout-a.jpg',
-      priceId: 'price_1RusKa2KR77tcshFqcVFpAsz',
+      priceId: 'price_1SdULK2KR77tcshF8lVfRyXj', // 🔴 recurring price mới
       isSubscription: true,
     },
   ]
@@ -500,7 +500,7 @@ export default function KairoWebsite() {
                 <h4 className="font-bold text-xl text-black">{opt.title}</h4>
                 <p className="text-gray-700">{opt.details}</p>
                 <p className="text-2xl font-extrabold mt-2">{opt.price}</p>
-                <p className="text-sm text-gray-500 mb-4">+ Shipping: {opt.shipping}</p>
+                <p className="text-sm text-green-600 font-semibold mb-4">{opt.delivery}</p>
                 <Button onClick={() => navigate('/checkout', { state: opt })}>{opt.label}</Button>
               </motion.div>
             ))}

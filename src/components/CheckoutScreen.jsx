@@ -1,54 +1,35 @@
 // src/components/CheckoutScreen.jsx
-import React, { useMemo, useState } from 'react'
-import { useLocation } from 'react-router-dom'
-
-// Endpoint động: Vercel dùng /api/..., local dùng http://localhost:4242
-const API_ENDPOINT = import.meta.env.PROD
-  ? '/api/create-checkout-session'
-  : `${(import.meta.env.VITE_API_BASE || 'http://localhost:4242').replace(/\/$/, '')}/create-checkout-session`
+import React from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export default function CheckoutScreen() {
-  const { state } = useLocation()
-  const [loading, setLoading] = useState(false)
+  const location = useLocation()
+  const navigate = useNavigate()
 
-  if (!state) return <div className="p-8">No item selected. Go back to the shop.</div>
+  // Safe fallback (KHÔNG crash)
+  const state = location.state || {}
 
-  const { title, details, price, img, priceId, isSubscription } = state
+  const {
+    title = 'Product',
+    details = '',
+    price = '',
+    img = '/images/gummies-layout-c.jpg',
+  } = state
 
-  const { imgSrc, mode } = useMemo(() => {
-    const t = (title || '').toLowerCase()
-    const sub = t.includes('subscription') || t.includes('monthly') || !!isSubscription
-    let fallback = '/images/gummies-layout-c.jpg'
-    if (t.includes('4-pack') || t.includes('bundle')) fallback = '/images/hero.jpg'
-    if (sub) fallback = '/images/gummies-layout-a.jpg'
-    return { imgSrc: img || fallback, mode: sub ? 'subscription' : 'payment' }
-  }, [title, img, isSubscription])
-
-  const handlePay = async () => {
-    if (!priceId) return alert('Missing priceId (use a Test Price ID).')
-    setLoading(true)
-    try {
-      const res = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          priceId,
-          quantity: 1,
-          mode,
-          // successUrl: `${window.location.origin}/success`,
-          // cancelUrl: `${window.location.origin}/checkout`,
-        }),
-      })
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const data = await res.json()
-      if (data?.url) window.location.href = data.url
-      else throw new Error('No checkout URL returned.')
-    } catch (e) {
-      console.error(e)
-      alert('Unable to start checkout. Check server/API route, test keys, and priceId.')
-    } finally {
-      setLoading(false)
-    }
+  // Nếu user vào thẳng /checkout → quay về shop
+  if (!location.state) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center text-center px-6">
+        <h2 className="text-2xl font-bold mb-4">No product selected</h2>
+        <p className="text-gray-600 mb-6">Please go back to the shop and select a product.</p>
+        <button
+          onClick={() => navigate('/#shop')}
+          className="bg-lime-500 text-white px-6 py-3 rounded font-bold hover:bg-lime-600"
+        >
+          Go to Shop
+        </button>
+      </div>
+    )
   }
 
   return (
@@ -61,31 +42,22 @@ export default function CheckoutScreen() {
       </div>
 
       <div className="w-full max-w-xl mx-auto bg-white/95 p-6 rounded-xl shadow-2xl">
+        {/* Order Summary */}
         <div className="flex gap-4 items-center mb-6">
-          <img src={imgSrc} alt={title} className="w-20 h-20 object-cover rounded-md border" />
+          <img src={img} alt={title} className="w-20 h-20 object-cover rounded-md border" />
           <div>
             <h2 className="text-xl font-semibold">Order Summary</h2>
             <p>{title}</p>
             <p className="text-gray-500">{details}</p>
             <p className="font-bold mt-1">{price}</p>
+            <p className="text-sm text-green-600 font-medium mt-1">Free Delivery</p>
           </div>
         </div>
 
-        <div className="text-center">
-          <p className="mb-3 text-gray-600">You’ll be redirected to Stripe to complete payment.</p>
-          <button
-            onClick={handlePay}
-            disabled={loading}
-            className={`bg-lime-500 text-white px-6 py-3 rounded font-bold transition
-              ${loading ? 'opacity-60 cursor-not-allowed' : 'hover:bg-lime-600'}`}
-          >
-            {loading ? 'Redirecting…' : 'Pay with Stripe'}
-          </button>
-
-          {/* Powered by Stripe (optional) */}
-          <div className="flex items-center justify-center mt-4">
-            <img src="/icons/stripe-logo.svg" alt="Powered by Stripe" className="h-6" />
-          </div>
+        {/* Info */}
+        <div className="text-center text-gray-600">
+          <p>You’ll be redirected to Stripe to complete your payment securely.</p>
+          <p className="mt-2 text-sm">If you cancel or refresh, no money will be taken.</p>
         </div>
       </div>
     </div>
